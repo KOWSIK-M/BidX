@@ -1,0 +1,20 @@
+/* ap1.css */
+
+.Ap1b {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color:black;
+  }
+  
+  h1 {
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Add any additional styles you need for the container */
+  

@@ -1,0 +1,16 @@
+.tablestyle{
+    width: 100%;
+}
+
+.tablestyle .firstcolumn{
+    width: 120px;
+    padding: 10px;
+}
+
+.imgstyle{
+    width: 85px;
+    height: 100px;
+}
+.outletprofile{
+    color: black;
+}

@@ -1,0 +1,42 @@
+var RT2 = document.getElementById('RT2');
+var RT3 = document.getElementById('RT3');
+var RT4 = document.getElementById('RT4');
+var RT5 = document.getElementById('RT5');
+var RT6 = document.getElementById('RT6');
+RT1.style.border="";
+RT2.style.border="";
+RT3.style.border="";
+RT4.style.border="";
+RT5.style.border="";
+RT6.style.border="";
+if(RT1.value==="")
+{
+    RT1.style.border = "1px solid red";
+    RT1.focus();
+    return;
+}
+if(RT2.value==="")
+{
+    RT2.style.border = "1px solid red";
+    RT2.focus();
+    return;
+}
+if(RT3.value==="")
+{
+    RT3.style.border = "1px solid red";
+    RT3.focus();
+    return;
+}
+if(RT4.value==="")
+{
+    RT4.style.border = "1px solid red";
+    RT4.focus();
+    return;
+}
+if(RT5.value==="")
+{
+    RT5.style.border = "1px solid red";
+    RT5.focus();
+    return;
+}
+
