@@ -25,7 +25,7 @@ class Mhn1 extends React.Component {
 
     logout() {
         setSession("sid", "", -1);
-        window.location.replace("/");
+        window.location.replace("/BidX");
     }
     addDataToHTML = () => {
         const { products } = this.state;
@@ -98,7 +98,7 @@ class Mhn1 extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/mhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -113,7 +113,7 @@ class Mhn1 extends React.Component {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/myBid">
+                        <a class="nav-link" href="/BidX/myBid">
                             <i class="bi bi-bookmarks"></i> My Biddings
                         </a>
                     </li>
@@ -128,7 +128,7 @@ class Mhn1 extends React.Component {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">
+                        <a class="nav-link" href="/BidX/profile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>

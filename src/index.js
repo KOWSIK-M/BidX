@@ -28,28 +28,28 @@ function Website() {
       <div style={{ background: color }}>
         <Routes>
           <Route
-            path="/BidX/"
+            path="/BidX"
             element={
               <Home changeColor={changeColor} />
             }
           />
-          <Route path="/login" element={<Login changeColor={changeColor} />} />
-          <Route path="/slogin" element={<SLogin changeColor={changeColor} />} />
-          <Route path="/about" element={<Info changeColor={changeColor} />} />
-          <Route path="/contact" element={<Contact changeColor={changeColor} />} />
-          <Route path="/pp" element={<PP changeColor={changeColor} />} />
-          <Route path="/tc" element={<TC changeColor={changeColor} />} />
-          <Route path="/mh1" element={<Mh1 changeColor={changeColor} />} />
-          <Route path="/fp" element={<FP changeColor={changeColor} />} />
-          <Route path="/ap1" element={<App1 changeColor={changeColor} />} />
-          <Route path="/profile" element={<Profile changeColor={changeColor} />} />
-          <Route path="/sprofile" element={<SMyProfile changeColor={changeColor} />} />
-          <Route path="/mhn1" element={<Mhn1 changeColor={changeColor} />} />
-          <Route path="/smhn1" element={<SMhn1 changeColor={changeColor} />} />
-          <Route path="/myBid" element={<MyBid changeColor={changeColor} />} />
-          <Route path="/crBid" element={<CRBid changeColor={changeColor} />} />
-          <Route path="/trend" element={<Trend changeColor={changeColor} />} />
-          <Route path="/bidpage" element={<Bidpage changeColor={changeColor} />} />
+          <Route path="BidX/login" element={<Login changeColor={changeColor} />} />
+          <Route path="BidX/slogin" element={<SLogin changeColor={changeColor} />} />
+          <Route path="BidX/about" element={<Info changeColor={changeColor} />} />
+          <Route path="BidX/contact" element={<Contact changeColor={changeColor} />} />
+          <Route path="BidX/pp" element={<PP changeColor={changeColor} />} />
+          <Route path="BidX/tc" element={<TC changeColor={changeColor} />} />
+          <Route path="BidX/mh1" element={<Mh1 changeColor={changeColor} />} />
+          <Route path="BidX/fp" element={<FP changeColor={changeColor} />} />
+          <Route path="BidX/ap1" element={<App1 changeColor={changeColor} />} />
+          <Route path="BidX/profile" element={<Profile changeColor={changeColor} />} />
+          <Route path="BidX/sprofile" element={<SMyProfile changeColor={changeColor} />} />
+          <Route path="BidX/mhn1" element={<Mhn1 changeColor={changeColor} />} />
+          <Route path="BidX/smhn1" element={<SMhn1 changeColor={changeColor} />} />
+          <Route path="BidX/myBid" element={<MyBid changeColor={changeColor} />} />
+          <Route path="BidX/crBid" element={<CRBid changeColor={changeColor} />} />
+          <Route path="BidX/trend" element={<Trend changeColor={changeColor} />} />
+          <Route path="BidX/bidpage" element={<Bidpage changeColor={changeColor} />} />
         </Routes>
       </div>
     </BrowserRouter>

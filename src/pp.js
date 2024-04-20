@@ -4,9 +4,9 @@ function PP(){
     return(
         <div>
             <header className="ch">
-        <a href="#" class="alogo">BidX</a>
+        <a href="/BidX" class="alogo">BidX</a>
         <nav>
-            <a className="rt" href="/">Home</a>
+            <a className="rt" href="/BidX">Home</a>
         </nav>
         </header>
         <div className="q">
@@ -48,7 +48,7 @@ function PP(){
    <br></br><span> Updates to Privacy Policy:</span>
    <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- The Privacy Policy may be updated periodically. Users will be notified of any significant changes, and the revised policy will be posted on the platform.
    <br></br><span>Contact Information:</span>
-   <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- For any questions or concerns regarding this Privacy Policy, users can contact us at <a href="contact" style={{color:"aqua"}}>[contact]</a>.
+   <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- For any questions or concerns regarding this Privacy Policy, users can contact us at <a href="/BidX/contact" style={{color:"aqua"}}>[contact]</a>.
    <br></br><br></br>
 By using the Online Bidding/Auction Platform, you acknowledge and agree to the terms outlined in this Privacy Policy.
             </p>

@@ -9,9 +9,9 @@ function Contact({changeColor}){
     return(
         <div>
         <header className="ch">
-        <a href="#" class="alogo">BidX</a>
+        <a href="/BidX" class="alogo">BidX</a>
         <nav>
-            <a className="rt" href="/">Home</a>
+            <a className="rt" href="/BidX">Home</a>
         </nav>
         </header>
         <div className="cont" > 

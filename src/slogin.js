@@ -177,12 +177,12 @@ function loginSuccess(res)
        <div className='mmm'>
 
         <header className='lch'>
-        <a href="/" class="logo">BidX</a>
+        <a href="/BidX" class="logo">BidX</a>
         <nav>
-            <a className='bl' href="/">Home</a>
-            <a className='bl' href="contact">Contacts</a>
-            <a className='bl' href="about">Info</a>
-            <a className='bl' href="login">Sign In</a>
+            <a className='bl' href="/BidX">Home</a>
+            <a className='bl' href="/BidX/contact">Contacts</a>
+            <a className='bl' href="/BidX/about">Info</a>
+            <a className='bl' href="/BidX/login">Sign In</a>
         </nav>
     </header>
      <div className='bdy'> 
@@ -200,7 +200,7 @@ function loginSuccess(res)
                             <span onClick={togglePasswordVisibility1} style={{cursor: 'pointer'}}>{passwordInputType1 === "password" ? "👁" : "🚫"}</span>
                         </div>
                         <br></br><br></br>
-                        <a href="ap1" className="form__link">Forgot your password?</a>
+                        <a href="/BidX/ap1" className="form__link">Forgot your password?</a>
                         <button className="form__button button submit" onClick={validate} >SIGN IN</button>
                     </form>
             </div>
@@ -242,13 +242,13 @@ function loginSuccess(res)
         <div className="footer">
                     <div className="footer-content">
                     <div className="privacy-policy">
-                    <a href="pp">Privacy Policy</a>
+                    <a href="/BidX/pp">Privacy Policy</a>
                     </div>
                     <div className="terms-conditions">
-                        <a href="tc">Terms & Conditions</a>
+                        <a href="/BidX/tc">Terms & Conditions</a>
                     </div>
                     <div className="terms-conditions">
-                        <a href="/">BidX©</a>
+                        <a href="/BidX">BidX©</a>
                     </div>
                 </div>
                 </div>
