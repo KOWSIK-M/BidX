@@ -50,7 +50,7 @@
                     <div class="containers">
     <div class="sidebar">
     <span class="logo">S</span>
-    <a class="logo-expand" href="/BidX" style={{color:"orange"}}>BidX</a>
+    <a class="logo-expand" href="/" style={{color:"orange"}}>BidX</a>
     <div class="side-wrapper">
     <div class="side-title">MENU</div>
     <div class="side-menu">

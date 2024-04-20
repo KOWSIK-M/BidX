@@ -148,12 +148,12 @@ const SMhn1 = ({ changeColor }) => {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/smhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/trend">
+                        <a class="nav-link" href="/trend">
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
@@ -168,7 +168,7 @@ const SMhn1 = ({ changeColor }) => {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/crBid">
+                        <a class="nav-link" href="/crBid">
                             <i class="bi bi-people"></i> Create a Bid
                         </a>
                     </li>
@@ -178,7 +178,7 @@ const SMhn1 = ({ changeColor }) => {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/sprofile">
+                        <a class="nav-link" href="/sprofile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>
