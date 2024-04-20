@@ -1,7 +1,6 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './home';
 import Login from './login';
 import SLogin from './slogin';
@@ -25,7 +24,7 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <Router>
+    <BrowserRouter>
       <div style={{ background: color }}>
         <Routes>
           <Route
@@ -53,7 +52,7 @@ function Website() {
           <Route path="BidX/bidpage" element={<Bidpage changeColor={changeColor} />} />
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
