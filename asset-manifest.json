@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BidX/static/css/main.b6040d89.css",
-    "main.js": "/BidX/static/js/main.6c2731fb.js",
+    "main.js": "/BidX/static/js/main.7be7fecd.js",
     "static/media/collectibles.png": "/BidX/static/media/collectibles.32c198fa1a92eb5519a0.png",
     "static/media/antq.jpg": "/BidX/static/media/antq.1d37aaf9bc9cd38aaf18.jpg",
     "static/media/cars.jpg": "/BidX/static/media/cars.afabfefb52ab5d930e90.jpg",
@@ -15,10 +15,10 @@
     "static/media/vc.jpeg": "/BidX/static/media/vc.40197059617038c9f810.jpeg",
     "index.html": "/BidX/index.html",
     "main.b6040d89.css.map": "/BidX/static/css/main.b6040d89.css.map",
-    "main.6c2731fb.js.map": "/BidX/static/js/main.6c2731fb.js.map"
+    "main.7be7fecd.js.map": "/BidX/static/js/main.7be7fecd.js.map"
   },
   "entrypoints": [
     "static/css/main.b6040d89.css",
-    "static/js/main.6c2731fb.js"
+    "static/js/main.7be7fecd.js"
   ]
 }
