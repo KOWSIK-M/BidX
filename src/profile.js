@@ -100,7 +100,7 @@ class Profile extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/mhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -130,7 +130,7 @@ class Profile extends React.Component {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">
+                        <a class="nav-link" href="/BidX/profile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>

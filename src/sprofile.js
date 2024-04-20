@@ -100,7 +100,7 @@ class SMyProfile extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -120,7 +120,7 @@ class SMyProfile extends React.Component {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/crBid">
+                        <a class="nav-link" href="/BidX/crBid">
                             <i class="bi bi-people"></i> Create a Bid
                         </a>
                     </li>
@@ -130,7 +130,7 @@ class SMyProfile extends React.Component {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sprofile">
+                        <a class="nav-link" href="/BidX/sprofile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>

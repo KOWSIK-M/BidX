@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6612f1baebb47932e01133d8"
+  },
+  "username": "kowsik",
+  "Pproduct": "Chair",
+  "Prprice": "100",
+  "Pdate": "2024-04-09",
+  "Ptime": "04:00",
+  "Pdes": "Nice chair",
+  "Pimgurl": "images/bids/kowsik.jpg"
+},
+{
+  "_id": {
+    "$oid": "6612f2edae7a21db7b0eb142"
+  },
+  "username": "kk",
+  "Pproduct": "Building",
+  "Prprice": "100000",
+  "Pdate": "2024-04-20",
+  "Ptime": "12:00",
+  "Pdes": "Vijayawada",
+  "Pimgurl": "kk.jpg"
+}]

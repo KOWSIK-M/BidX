@@ -59,7 +59,7 @@ class MyBid extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/mhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -74,7 +74,7 @@ class MyBid extends React.Component {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/myBid">
+                        <a class="nav-link" href="/BidX/myBid">
                             <i class="bi bi-bookmarks"></i> My Biddings
                         </a>
                     </li>
