@@ -4,9 +4,9 @@ function Info(){
     return(
         <div>
         <header className="ch">
-        <a href="/BidX" class="alogo">BidX</a>
+        <a href="/" class="alogo">BidX</a>
         <nav>
-            <a className="rt" href="/BidX">Home</a>
+            <a className="rt" href="/">Home</a>
         </nav>
     </header>
     <div className="abtmtr">

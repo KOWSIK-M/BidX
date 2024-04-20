@@ -86,9 +86,9 @@ function updatePwdSuccess(res)
     return (
         <div className="fps">
         <header className='lch1'>
-        <a href="/BidX" class="logo">BidX</a>
+        <a href="/" class="logo">BidX</a>
         <nav>
-            <a className='blll' href="/BidX/login">Go Back &#8617;</a>
+            <a className='blll' href="login">Go Back &#8617;</a>
         </nav>
     </header>
         <div id="box">

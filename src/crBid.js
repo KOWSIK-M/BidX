@@ -120,7 +120,7 @@ class CRBid extends React.Component {
 
     logout() {
         setSession("sid", "", -1);
-        window.location.replace("/BidX");
+        window.location.replace("/");
     }
     topProf(){
         window.location.replace("/sprofile");
@@ -163,7 +163,7 @@ class CRBid extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/smhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -193,7 +193,7 @@ class CRBid extends React.Component {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/sprofile">
+                        <a class="nav-link" href="/sprofile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>
