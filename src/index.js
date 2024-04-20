@@ -35,7 +35,11 @@ function Website() {
           />
           <Route path="BidX/login" element={<Login changeColor={changeColor} />} />
           <Route path="BidX/slogin" element={<SLogin changeColor={changeColor} />} />
-          <Route path="BidX/about" element={<Info changeColor={changeColor} />} />
+          <Route path="BidX/about" element={<Info changeColor={changeColor} />} >
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <Link to="/about"/>
+</BrowserRouter>
+          </Route>
           <Route path="BidX/contact" element={<Contact changeColor={changeColor} />} />
           <Route path="BidX/pp" element={<PP changeColor={changeColor} />} />
           <Route path="BidX/tc" element={<TC changeColor={changeColor} />} />
