@@ -1,0 +1,54 @@
+
+h3{
+    margin-left: 100px;
+    font-size:30px;
+}
+
+.contact-link1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 100px;
+}
+.contact-link1 :hover{
+    color: greenyellow;
+}
+
+.contact-link1 a {
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.contact-link2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 100px;
+}
+.contact-link2 :hover{
+    color: skyblue;
+}
+
+.contact-link2 a {
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.me{
+    font-size:36px; color:rgb(255, 255, 255);
+}
+.m{
+    font-size:36px; color:rgb(255, 255, 255);
+}
+.fa fa-whatsapp{
+    font-size:30px; color:green;
+}
+.contact-link{
+    font-size:36px; color:rgb(255, 255, 255);
+}
+.fa2{
+    font-size:30px
+}
+.cont{
+    height: 660px;
+}
