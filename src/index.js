@@ -2,7 +2,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './home';
 import Login from './login';
 import SLogin from './slogin';
