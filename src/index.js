@@ -1,3 +1,5 @@
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -24,7 +26,7 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <BrowserRouter>
+    <Router>
       <div style={{ background: color }}>
         <Routes>
           <Route
@@ -35,11 +37,7 @@ function Website() {
           />
           <Route path="BidX/login" element={<Login changeColor={changeColor} />} />
           <Route path="BidX/slogin" element={<SLogin changeColor={changeColor} />} />
-          <Route path="BidX/about" element={<Info changeColor={changeColor} />} >
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
-  <Link to="/about"/>
-</BrowserRouter>
-          </Route>
+          <Route path="BidX/about" element={<Info changeColor={changeColor} />} />
           <Route path="BidX/contact" element={<Contact changeColor={changeColor} />} />
           <Route path="BidX/pp" element={<PP changeColor={changeColor} />} />
           <Route path="BidX/tc" element={<TC changeColor={changeColor} />} />
@@ -56,7 +54,7 @@ function Website() {
           <Route path="BidX/bidpage" element={<Bidpage changeColor={changeColor} />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
