@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/BidX/static/css/main.b6040d89.css",
+    "main.js": "/BidX/static/js/main.6613014a.js",
+    "static/media/collectibles.png": "/BidX/static/media/collectibles.32c198fa1a92eb5519a0.png",
+    "static/media/antq.jpg": "/BidX/static/media/antq.1d37aaf9bc9cd38aaf18.jpg",
+    "static/media/cars.jpg": "/BidX/static/media/cars.afabfefb52ab5d930e90.jpg",
+    "static/media/kk.jpg": "/BidX/static/media/kk.25ca1ea7e087960ebe87.jpg",
+    "static/media/kowsik.jpg": "/BidX/static/media/kowsik.4916aa2a39ce0a0aa7d8.jpg",
+    "static/media/art.jpg": "/BidX/static/media/art.2f5af72b83529db82d94.jpg",
+    "static/media/Pavani.jpg": "/BidX/static/media/Pavani.acb9b76723be5ef1758a.jpg",
+    "static/media/paytm.jpg": "/BidX/static/media/paytm.52c188bdbc38c4e9de3b.jpg",
+    "static/media/whatsapp.png": "/BidX/static/media/whatsapp.97b90b6e3f8c70254204.png",
+    "static/media/default.jpg": "/BidX/static/media/default.2f667d798a191f559710.jpg",
+    "static/media/vc.jpeg": "/BidX/static/media/vc.40197059617038c9f810.jpeg",
+    "index.html": "/BidX/index.html",
+    "main.b6040d89.css.map": "/BidX/static/css/main.b6040d89.css.map",
+    "main.6613014a.js.map": "/BidX/static/js/main.6613014a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b6040d89.css",
+    "static/js/main.6613014a.js"
+  ]
+}
