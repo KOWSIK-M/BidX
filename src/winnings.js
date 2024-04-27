@@ -1,6 +1,4 @@
-// SMhn1 component
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import './smhn1.css';
 import { callApi, errorResponse, setSession, getSession } from './main';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +8,7 @@ const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"rig
 const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
 
 // Product component
-const Product = ({ product, addToCart }) => {
+const Product = ({ product }) => {
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(product.Pdate, product.Ptime));
 
     useEffect(() => {
@@ -36,9 +34,7 @@ const Product = ({ product, addToCart }) => {
 
     return (
         <div className="item">
-            <div className="divImg">
             <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
-            </div>
             <h2>{product.Pproduct}</h2>
             <div className="price">${product.Prprice}</div>
             <p className="Bdes">{product.Pdes}</p>
@@ -46,52 +42,45 @@ const Product = ({ product, addToCart }) => {
                 <img src={`./images/photo/${product.username}.jpg`} alt="" className="dpBid" />
                 <p className="usBT">{product.username}</p>
             </div>
-            <div className="countdown">
-                <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
-            </div>
-            <Link to={`/BidX/mbid/${product.Pproduct}`}>
-                <button className="addBid">View Participants</button>
-            </Link>
-            </div>
+            <br></br>
+            <a className="addCart" href="/BidX/checkout">Checkout</a>
+        </div>
     );
 }
 
-const MyBid = ({ changeColor }) => {
+const Winnings = ({ changeColor }) => {
     changeColor("#fff");
     const [searchQuery, setSearchQuery] = useState("");
-    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState(null); // Changed to store only one product
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const sid = getSession("sid"); // Get session ID
-                if (sid === "") {
-                    window.location.replace("/BidX");
-                    return;
-                }
-                const fetchUserName = async () => {
-                    try {
-                        const data = getSession('sid');
-                        const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
-                    } catch (error) {
-                        errorResponse(error);
-                    }
-                };
+                const res = await callApi("POST", "http://localhost:5000/home/dashboardp", "", loadProduct, errorResponse);
+            } catch (error) {
+                errorResponse(error);
+            }
+        };
 
-                const data = JSON.stringify({ sid }); // Prepare data to send to server
-                const res = await callApi("POST", "http://localhost:5000/home/dashboard1", data, loadProduct, errorResponse); // Pass sid to server
+        const username = getSession("sid");
+        if (username === "") {
+            window.location.replace("/BidX");
+            return;
+        }
+
+        const fetchUserName = async () => {
+            try {
+                const data = JSON.stringify({ username });
+                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
         };
 
         fetchData();
+        fetchUserName();
     }, []);
 
-    const loadProduct = (res) => {
-        const productsData = JSON.parse(res);
-        setProducts(productsData);
-    }
     const loadUname = (res) => {
         const userData = JSON.parse(res);
         const HL1 = document.getElementById("HL1");
@@ -99,14 +88,17 @@ const MyBid = ({ changeColor }) => {
         HL1.innerText = userData[0].username;
         IM1.src = require(`../public/images/photo/${userData[0].imgurl}`);
     }
-    const addToCart = (product) => {
-        // Retrieve existing cart items from local storage
-        const existingCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        // Add the new item to the cart
-        const updatedCartItems = [...existingCartItems, product];
-        // Store the updated cart items in local storage
-        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-    };
+
+    const loadProduct = (res) => {
+        const productsData = JSON.parse(res);
+        const sortedProducts = productsData.sort((a, b) => {
+            const timeA = new Date(a.Pdate + "T" + a.Ptime);
+            const timeB = new Date(b.Pdate + "T" + b.Ptime);
+            return timeA - timeB;
+        });
+        // Set the first product from the sorted list
+        setProduct(sortedProducts[0]);
+    }
 
     const logout = () => {
         setSession("sid", "", -1);
@@ -114,22 +106,18 @@ const MyBid = ({ changeColor }) => {
     };
 
     const topProf = () => {
-        window.location.replace("/BidX/sprofile");
+        window.location.replace("/BidX/uprofile");
     };
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
 
-    const filteredProducts = products.filter(product =>
-        product.Pproduct.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
     return (
         <div style={{ flexDirection:"row", display:"flex" }}>
             <div>
                 <div class="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
-                 <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
+                <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
         <div class="container-fluid" style={{ flexDirection:"column", marginLeft:"0px"}}>
             
             <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,37 +125,50 @@ const MyBid = ({ changeColor }) => {
             </button>
             
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <a href="/BidX" class="alogo">BidX</a>
+            <a href="/BidX" class="alogo">BidX</a>
             </a>
             
+            <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
+                
+                <div class="dropdown">
+                    
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Settings</a>
+                        <a href="#" class="dropdown-item">Billing</a>
+                        <hr class="dropdown-divider"/>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            </div>
             
             <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/trend">
+                        <a class="nav-link" href="/BidX/utrend">
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/scollections">
+                        <a class="nav-link" href="/BidX/ucollections">
                             <i class="bi bi-bookmarks"></i> Collections
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/crBid">
-                            <i class="bi bi-people"></i> Create a Bid
+                        <a class="nav-link" href="/BidX/mypart">
+                            <i class="bi bi-box"></i> My Participations
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/myBid">
-                            <i class="bi bi-box"></i> My Bids
+                        <a class="nav-link" href="/BidX/winnings">
+                            <i class="bi bi-trophy"></i> My Winnings
                         </a>
                     </li>
                 </ul>
@@ -176,7 +177,7 @@ const MyBid = ({ changeColor }) => {
                 
                 <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/sprofile">
+                        <a class="nav-link" href="/BidX/uprofile">
                             <i class="bi bi-person-square"></i> Profile
                         </a>
                     </li>
@@ -192,10 +193,12 @@ const MyBid = ({ changeColor }) => {
                 </div>
             </div>
             <div className="outlet">
-            <div className="sheaderB" onClick={topProf}>
+                <div className="sheaderB" onClick={topProf}>
                     <label id="HL1" style={HS4}></label>
                     <img id="IM1" src="" alt="" style={HS5} className="imgstyle" />
                 </div>
+                <h1><i class="bi bi-bar-chart"></i>Winnings</h1>
+                
                 <input 
                     type="text" 
                     value={searchQuery} 
@@ -206,13 +209,12 @@ const MyBid = ({ changeColor }) => {
                 />
                 <FontAwesomeIcon icon={faSearch} className="searchIcon" />
                 <div className="listProduct">
-                    {filteredProducts.map(product => (
-                        <Product key={product.id} product={product} addToCart={addToCart} />
-                    ))}
+                    {/* Display only one product */}
+                    {product && <Product product={product} />}
                 </div>
             </div>
         </div>
     );
 };
 
-export default MyBid;
+export default Winnings;

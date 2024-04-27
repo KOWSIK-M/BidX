@@ -47,7 +47,7 @@ export function downloadPhoto() {
     downloadLink.download = 'profile_image';
     downloadLink.click();
 }
-class SMyProfile extends React.Component {
+class UMyProfile extends React.Component {
     constructor({changeColor}) {
         super();
         this.sid = getSession("sid");
@@ -100,29 +100,29 @@ class SMyProfile extends React.Component {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/trend">
+                        <a class="nav-link" href="/BidX/utrend">
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/trend">
+                        <a class="nav-link" href="/BidX/ucollections">
                             <i class="bi bi-bookmarks"></i> Collections
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/crBid">
-                            <i class="bi bi-people"></i> Create a Bid
+                        <a class="nav-link" href="/BidX/mypart">
+                            <i class="bi bi-box"></i> My Participations
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/myBid">
-                            <i class="bi bi-box"></i> My Bids
+                        <a class="nav-link" href="/BidX/winnings">
+                            <i class="bi bi-trophy"></i> My Winnings
                         </a>
                     </li>
                 </ul>
@@ -184,4 +184,4 @@ class SMyProfile extends React.Component {
     </div>
     );
 }}
-export default SMyProfile;
+export default UMyProfile;

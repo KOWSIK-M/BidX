@@ -94,7 +94,7 @@ function Home(res){
         <nav>
             <a href="/BidX">Home</a>
             <a href="/BidX/contact">Contacts</a>
-            <a href="/about">Info</a>
+            <a href="/BidX/about">Info</a>
             <div className="dropdown">
                         <a onClick={toggleDropdown} className="dropbtn">Signup</a>
                         <div id="myDropdown" className={`dropdown-content ${dropdownOpen ? 'show' : ''}`}>

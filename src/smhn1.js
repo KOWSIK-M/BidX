@@ -1,4 +1,6 @@
+// SMhn1 component
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import './smhn1.css';
 import { callApi, errorResponse, setSession, getSession } from './main';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +10,7 @@ const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"rig
 const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
 
 // Product component
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(product.Pdate, product.Ptime));
 
     useEffect(() => {
@@ -34,11 +36,12 @@ const Product = ({ product }) => {
 
     return (
         <div className="item">
+            <div className="divImg">
             <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
+            </div>
             <h2>{product.Pproduct}</h2>
             <div className="price">${product.Prprice}</div>
             <p className="Bdes">{product.Pdes}</p>
-            <h4>{product.Pdate} {product.Ptime}</h4>
             <div className="usB">
                 <img src={`./images/photo/${product.username}.jpg`} alt="" className="dpBid" />
                 <p className="usBT">{product.username}</p>
@@ -46,7 +49,10 @@ const Product = ({ product }) => {
             <div className="countdown">
                 <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
             </div>
-            <button className="addCart">Add To Cart</button>
+            <Link to={`/BidX/probid/${product.Pproduct}`}>
+                <button className="addBid">Bid Now</button>
+            </Link>
+            <button className="addBid" onClick={() => addToCart(product)}><i class="bi bi-bookmarks"></i>&nbsp;Add To Collections</button>
         </div>
     );
 }
@@ -67,7 +73,7 @@ const SMhn1 = ({ changeColor }) => {
 
         const username = getSession("sid");
         if (username === "") {
-            window.location.replace("/");
+            window.location.replace("/BidX");
             return;
         }
 
@@ -97,13 +103,22 @@ const SMhn1 = ({ changeColor }) => {
         setProducts(productsData);
     }
 
+    const addToCart = (product) => {
+        // Retrieve existing cart items from local storage
+        const existingCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        // Add the new item to the cart
+        const updatedCartItems = [...existingCartItems, product];
+        // Store the updated cart items in local storage
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    };
+
     const logout = () => {
         setSession("sid", "", -1);
-        window.location.replace("/");
+        window.location.replace("/BidX");
     };
 
     const topProf = () => {
-        window.location.replace("/sprofile");
+        window.location.replace("/BidX/sprofile");
     };
 
     const handleSearch = (event) => {
@@ -127,22 +142,9 @@ const SMhn1 = ({ changeColor }) => {
             </button>
             
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="..."/>
+                <a href="/BidX" class="alogo">BidX</a>
             </a>
             
-            <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
-                
-                <div class="dropdown">
-                    
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
-                </div>
-            </div>
             
             <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
                 
@@ -157,19 +159,20 @@ const SMhn1 = ({ changeColor }) => {
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat"></i> Messages
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/BidX/scollections">
                             <i class="bi bi-bookmarks"></i> Collections
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/BidX/crBid">
                             <i class="bi bi-people"></i> Create a Bid
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/myBid">
+                            <i class="bi bi-box"></i> My Bids
                         </a>
                     </li>
                 </ul>
@@ -211,7 +214,7 @@ const SMhn1 = ({ changeColor }) => {
                 <FontAwesomeIcon icon={faSearch} className="searchIcon" />
                 <div className="listProduct">
                     {filteredProducts.map(product => (
-                        <Product key={product.id} product={product} />
+                        <Product key={product.id} product={product} addToCart={addToCart} />
                     ))}
                 </div>
             </div>

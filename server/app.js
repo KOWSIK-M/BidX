@@ -195,3 +195,150 @@ app.post('/home/uname', async function(req, res){
     }
 });
 
+app.post('/home/product', async function(req, res){
+    try { // Extract productName from the request body
+        conn = await client.connect();
+        db = conn.db('BidX');
+        users = db.collection('bids');
+        data = await users.find(req.body).toArray();
+        conn.close();
+        res.json(data);
+    } catch(err) {
+        res.json(err).status(404);
+    }
+});
+
+//Bid Amount
+app.post('/bidAMT', async function(req, res){
+    try
+    {
+        conn = await client.connect();
+        db = conn.db('BidX');
+        partc = db.collection('partc');
+        data = await partc.insertOne(req.body);
+        conn.close();
+        res.json("Bidded Successfully ! 😊\n You will be Notified if You win this Auction");
+    }catch(err)
+    {
+        res.json(err).status(404);
+    }
+});
+
+
+//MyBid
+app.post('/home/dashboard1', async function(req, res){
+    try {
+        conn = await client.connect();
+        db = conn.db('BidX');
+        bids = db.collection('bids');
+        
+        // Retrieve the username (sid) from the request body
+        const { sid } = req.body;
+        
+        // Fetch products from the database where the username matches sid
+        const data = await bids.find({ username: sid }).toArray();
+        
+        conn.close();
+        res.json(data);
+    } catch(err) {
+        res.status(404).json(err);
+    }
+});
+
+//Participant list
+app.post('/home/participants', async function(req, res) {
+    try {
+        conn = await client.connect();
+        db = conn.db('BidX');
+        users = db.collection('partc');
+        
+        // Sort the data by bidamt in descending order
+        const data = await users.find(req.body).sort({ bidamt: -1 }).toArray();
+        
+        conn.close();
+        res.json(data);
+    } catch(err) {
+        res.json(err).status(404);
+    }
+});
+
+app.post('/home/dashboard2', async (req, res) => {
+    try {
+        conn = await client.connect();
+        
+        db = conn.db('BidX');
+        bids = db.collection('partc');
+        const { sid } = req.body;
+        
+        // Fetch products from the database where the username matches sid
+        const data = await bids.find({ username: sid }).toArray();
+        conn.close();
+        res.json(userData);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Make a POST request to your server endpoint for validating the username and phone number
+      const response = await axios.post('http://localhost:5000/login/fp', {
+        username: username,
+        phoneNumber: phoneNumber
+      });
+      
+      // If the response is successful, redirect to the 'BidX/ap1' page
+      if (response.status === 200) {
+        window.location.href = 'http://localhost:3000/BidX/ap1'; // Assuming React app runs on port 3000
+      }
+    } catch (err) {
+      // If there's an error, display the error message
+      setError(err.response.data);
+    }
+  };
+
+  // Validate Phone Number route
+app.post('/validate-phone', async (req, res) => {
+    try {
+        const { mobileno, username } = req.body;
+        
+        // Connect to the database
+        const conn = await client.connect();
+        const db = conn.db('BidX');
+        const users = db.collection('users');
+        
+        // Check if the phone number and username exist in the database
+        const user = await users.findOne({ mobileno: mobileno, username: username });
+
+        if (user) {
+            // Phone number and username found in the database, proceed to the 'BidX/ap1' page
+            res.status(200).send({ message: 'Phone number and username validation successful' });
+        } else {
+            // Phone number or username not found in the database, return an error
+            res.status(400).send({ message: 'Phone number or username not found' });
+        }
+        
+        // Close the database connection
+        conn.close();
+    } catch (error) {
+        console.error('Error validating phone number and username:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+
+app.post('/home/dashboardp', async function(req, res){
+    try
+    {
+        conn = await client.connect();
+        db = conn.db('BidX');
+        bids = db.collection('bids');
+        data = await bids.find({}).toArray();
+        conn.close();
+        res.json(data);
+    }catch(err)
+    {
+        res.json(err).status(404);
+    }
+});

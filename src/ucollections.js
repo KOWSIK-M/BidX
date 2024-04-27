@@ -7,18 +7,49 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"right","margin-top":"7px","font-size":"14px"}
 const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
 
-// Product component
-const Product = ({ product }) => {
-    const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(product.Pdate, product.Ptime));
+const UCollections = ({ changeColor }) => {
+    changeColor("#fff");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
-        }, 1000);
-        return () => clearInterval(timer);
+        // Retrieve cart items from local storage
+        const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        setCartItems(storedCartItems);
+        
+        const username = getSession("sid");
+        if (username === "") {
+            window.location.replace("/BidX");
+            return;
+        }
+        
+        const fetchUserName = async () => {
+            try {
+                const data = JSON.stringify({ username });
+                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+            } catch (error) {
+                errorResponse(error);
+            }
+        };
+        
+        fetchUserName();
     }, []);
 
-    function calculateTimeRemaining(date, time) {
+    const logout = () => {
+        setSession("sid", "", -1);
+        window.location.replace("/BidX");
+    };
+
+    const topProf = () => {
+        window.location.replace("/BidX/uprofile");
+    };
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Function to calculate time remaining for each product
+    const calculateTimeRemaining = (date, time) => {
         const targetDate = new Date(date + "T" + time);
         const now = new Date();
         const timeRemaining = targetDate - now;
@@ -30,59 +61,12 @@ const Product = ({ product }) => {
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         return { days, hours, minutes, seconds };
-    }
+    };
 
-    return (
-        <div className="item">
-            <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
-            <h2>{product.Pproduct}</h2>
-            <div className="price">${product.Prprice}</div>
-            <p className="Bdes">{product.Pdes}</p>
-            <h4>{product.Pdate} {product.Ptime}</h4>
-            <div className="usB">
-                <img src={`./images/photo/${product.username}.jpg`} alt="" className="dpBid" />
-                <p className="usBT">{product.username}</p>
-            </div>
-            <div className="countdown">
-                <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
-            </div>
-            <button className="addCart">Add To Cart</button>
-        </div>
-    );
-}
-
-const Trend = ({ changeColor }) => {
-    changeColor("#fff");
-    const [searchQuery, setSearchQuery] = useState("");
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await callApi("POST", "http://localhost:5000/home/dashboard", "", loadProduct, errorResponse);
-            } catch (error) {
-                errorResponse(error);
-            }
-        };
-
-        const username = getSession("sid");
-        if (username === "") {
-            window.location.replace("/BidX");
-            return;
-        }
-
-        const fetchUserName = async () => {
-            try {
-                const data = JSON.stringify({ username });
-                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
-            } catch (error) {
-                errorResponse(error);
-            }
-        };
-
-        fetchData();
-        fetchUserName();
-    }, []);
+    // Function to format countdown timer
+    const formatTime = (time) => {
+        return time < 10 ? `0${time}` : time;
+    };
 
     const loadUname = (res) => {
         const userData = JSON.parse(res);
@@ -92,39 +76,19 @@ const Trend = ({ changeColor }) => {
         IM1.src = require(`../public/images/photo/${userData[0].imgurl}`);
     }
 
-    const loadProduct = (res) => {
-        const productsData = JSON.parse(res);
-        const sortedProducts = productsData.sort((a, b) => {
-            const timeA = new Date(a.Pdate + "T" + a.Ptime);
-            const timeB = new Date(b.Pdate + "T" + b.Ptime);
-            return timeA - timeB;
-        });
-        setProducts(sortedProducts);
-    }
-
-    const logout = () => {
-        setSession("sid", "", -1);
-        window.location.replace("/BidX");
+    const removeFromCollection = (productToRemove) => {
+        // Filter out the product to remove from the collections
+        const updatedCartItems = cartItems.filter(item => item !== productToRemove);
+        setCartItems(updatedCartItems);
+        // Update local storage with the updated cart items
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     };
-
-    const topProf = () => {
-        window.location.replace("/BidX/sprofile");
-    };
-
-    const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
-    };
-
-    const filteredProducts = products.filter(product =>
-        product.Pproduct.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
+    
     return (
         <div style={{ flexDirection:"row", display:"flex" }}>
             <div>
-            <div class="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
-    
-    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
+                <div className="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
+                <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
         <div class="container-fluid" style={{ flexDirection:"column", marginLeft:"0px"}}>
             
             <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,31 +117,32 @@ const Trend = ({ changeColor }) => {
                 
                 <ul class="navbar-nav" style={{ flexDirection:"column"}}>
                     <li class="nav-item" >
-                        <a class="nav-link" href="/BidX/smhn1" style={{ color:"black"}}>
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/trend">
+                        <a class="nav-link" href="/BidX/utrend">
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/scollections">
+                        <a class="nav-link" href="/BidX/ucollections">
                             <i class="bi bi-bookmarks"></i> Collections
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/crBid">
-                            <i class="bi bi-people"></i> Create a Bid
+                        <a class="nav-link" href="/BidX/mypart">
+                            <i class="bi bi-box"></i> My Participations
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/BidX/myBid">
-                            <i class="bi bi-box"></i> My Bids
+                        <a class="nav-link" href="/BidX/winnings">
+                            <i class="bi bi-trophy"></i> My Winnings
                         </a>
                     </li>
+                    
                 </ul>
                 
                 <hr class="navbar-divider my-5 opacity-20"/>
@@ -196,15 +161,15 @@ const Trend = ({ changeColor }) => {
                 </ul>
             </div>
         </div>
-    </nav>
-    </div>
+    </nav>   
+                </div>
             </div>
             <div className="outlet">
                 <div className="sheaderB" onClick={topProf}>
                     <label id="HL1" style={HS4}></label>
                     <img id="IM1" src="" alt="" style={HS5} className="imgstyle" />
                 </div>
-                <h1><i class="bi bi-bar-chart"></i>Trending</h1>
+                <h1><i class="bi bi-bookmarks"></i>Your Collections</h1>
                 
                 <input 
                     type="text" 
@@ -215,14 +180,38 @@ const Trend = ({ changeColor }) => {
                     className="searchInput"
                 />
                 <FontAwesomeIcon icon={faSearch} className="searchIcon" />
+                
                 <div className="listProduct">
-                    {filteredProducts.map(product => (
-                        <Product key={product.id} product={product} />
-                    ))}
+                    <div>
+                        {cartItems.map(item => {
+                            const timeRemaining = calculateTimeRemaining(item.Pdate, item.Ptime);
+                            return (
+                                <div key={item.id} className="cartItem">
+                                    <div className="item">
+                                        <img src={`./images/bids/${item.username}/${item.Pimgurl}`} alt="" className="ProImg" />
+                                        <h2>{item.Pproduct}</h2>
+                                        <div className="price">${item.Prprice}</div>
+                                        <p className="Bdes">{item.Pdes}</p>
+                                        <div className="usB">
+                                            <img src={`./images/photo/${item.username}.jpg`} alt="" className="dpBid" />
+                                            <p className="usBT">{item.username}</p>
+                                            <div className="countdown">
+                                                <p>Time Remaining: {formatTime(timeRemaining.days)}d {formatTime(timeRemaining.hours)}h {formatTime(timeRemaining.minutes)}m {formatTime(timeRemaining.seconds)}s</p>
+                                            </div>
+                                            <button className="addBid">Bid Now</button>
+                                            <br></br>
+                                            <button className="addBid" onClick={() => removeFromCollection(item)}>Remove</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Trend;
+export default UCollections;

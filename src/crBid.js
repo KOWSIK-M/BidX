@@ -142,7 +142,7 @@ class CRBid extends React.Component {
             </button>
             
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="..."/>
+            <a href="/BidX" class="alogo">BidX</a>
             </a>
             
             <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
@@ -168,23 +168,24 @@ class CRBid extends React.Component {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/BidX/trend">
                             <i class="bi bi-bar-chart"></i> Trending
                         </a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat"></i> Messages
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/BidX/scollections">
                             <i class="bi bi-bookmarks"></i> Collections
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/BidX/crBid">
                             <i class="bi bi-people"></i> Create a Bid
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/myBid">
+                            <i class="bi bi-box"></i> My Bids
                         </a>
                     </li>
                 </ul>

@@ -6,7 +6,7 @@ function Info(){
         <header className="ch">
         <a href="/BidX" class="alogo">BidX</a>
         <nav>
-            <a className="rt" href="/"BidX>Home</a>
+            <a className="rt" href="/BidX"BidX>Home</a>
         </nav>
     </header>
     <div className="abtmtr">

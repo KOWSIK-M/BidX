@@ -3,7 +3,6 @@ import './login.css';
 import twit from './images/twit.jpg';
 import Lin from './images/in.jpg';
 import fb from './images/fb.jpg';
-import ReCAPTCHA from "react-google-recaptcha";
 import { callApi, errorResponse, setSession } from './main';
 
 function SLogin() {
@@ -12,6 +11,10 @@ function SLogin() {
     const [passwordInputType, setPasswordInputType] = useState("password");
     const [passwordInputType1, setPasswordInputType1] = useState("password");
     const [passwordInputType2, setPasswordInputType2] = useState("password");
+    
+    const [mobileNo, setMobileNo] = useState("");
+    const [username, setUsername] = useState("");
+    const [fullName, setFullName] = useState("");
     const switchCtn = useRef(null);
     const switchCircle = useRef(null);
     const aContainer = useRef(null);
@@ -28,6 +31,22 @@ function SLogin() {
     };
     const togglePasswordVisibility2 = () => {
         setPasswordInputType2(prevType => prevType === "password" ? "text" : "password");
+    };
+
+    const handleFullNameChange = (e) => {
+        const value = e.target.value;
+        // Validation for full name (only characters and spaces allowed)
+        if (/^[a-zA-Z\s]*$/.test(value)) {
+            setFullName(value);
+        }
+    };
+
+    const handleMobileNoChange = (e) => {
+        const value = e.target.value;
+        // Validation for mobile number (only 10 digits allowed)
+        if (/^\d{0,10}$/.test(value)) {
+            setMobileNo(value);
+        }
     };
 
     const changeForm = () => {
@@ -167,7 +186,7 @@ function loginSuccess(res)
     if(data === 1){
         var T1=document.getElementById('T1');
         setSession("sid", T1.value, 0.5);
-        window.location.replace("/smhn1");
+        window.location.replace("/BidX/smhn1");
     }
     else
         alert("Invalid Credentials!");
@@ -200,17 +219,17 @@ function loginSuccess(res)
                             <span onClick={togglePasswordVisibility1} style={{cursor: 'pointer'}}>{passwordInputType1 === "password" ? "👁" : "🚫"}</span>
                         </div>
                         <br></br><br></br>
-                        <a href="/BidX/ap1" className="form__link">Forgot your password?</a>
+                        <a href="/BidX/validatePhoneno" className="form__link">Forgot your password?</a>
                         <button className="form__button button submit" onClick={validate} >SIGN IN</button>
                     </form>
             </div>
             <div className="container b-container" id="registration" ref={bContainer}>
             <form className="form" id="a-form">
                     <h2 className="form_title titles">Create Account</h2>
-                    <input className="form__input" type="text" id='RT1' placeholder="Full Name"/>
+                    <input className="form__input" type="text" id='RT1' value={fullName} onChange={handleFullNameChange} placeholder="Full Name"/>
                     <input className="form__input" type="date" id='RT2' placeholder="DOB"/>
-                    <input className="form__input" type="text" id='RT3' placeholder="Mobile No."/>
-                    <input className="form__input" type="text" id='RT4' placeholder="Username"/>
+                    <input className="form__input" type="text" id='RT3' value={mobileNo} onChange={handleMobileNoChange} placeholder="Mobile No."/>
+                    <input className="form__input" type="text" id='RT4' value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
                     <input className="form__input" type="text" id='RT5' placeholder="Email"/>
                     <div className="password-wrapper">
                         <input className="form__input" type={passwordInputType} id='RT6' placeholder="Password"/>

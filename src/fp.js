@@ -76,7 +76,7 @@ function validatePwd(res)
 
 function updatePwdSuccess(res)
 {
-    window.location.replace("login");
+    window.location.replace("/BidX");
     var data = JSON.parse(res);
     alert(data);
 }
