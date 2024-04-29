@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BidX/static/css/main.71b843b5.css",
-    "main.js": "/BidX/static/js/main.415a8425.js",
+    "main.js": "/BidX/static/js/main.d7cb3b0a.js",
     "static/media/collectibles.png": "/BidX/static/media/collectibles.32c198fa1a92eb5519a0.png",
     "static/media/kowsik.jpg": "/BidX/static/media/kowsik.4916aa2a39ce0a0aa7d8.jpg",
     "static/media/zoro frame.jpg": "/BidX/static/media/zoro frame.efa0a52454ac7e636cf8.jpg",
@@ -14,21 +14,23 @@
     "static/media/photo.jpg": "/BidX/static/media/photo.3df94c4445303e835a65.jpg",
     "static/media/paytm.jpg": "/BidX/static/media/paytm.52c188bdbc38c4e9de3b.jpg",
     "static/media/Luxury Chair.jpg": "/BidX/static/media/Luxury Chair.6b8d04d6274f4728faa4.jpg",
-    "static/media/tt.jpg": "/BidX/static/media/tt.170f61532b63d2ab3dee.jpg",
     "static/media/PLUIEX Sculpture.jpg": "/BidX/static/media/PLUIEX Sculpture.2e6f2f403ddfd2dc49da.jpg",
     "static/media/Raju.jpg": "/BidX/static/media/Raju.015999cc2e61030c8570.jpg",
+    "static/media/tt.jpg": "/BidX/static/media/tt.015999cc2e61030c8570.jpg",
+    "static/media/Jewellery.jpg": "/BidX/static/media/Jewellery.07a56560558956eeb4b0.jpg",
     "static/media/Pavani.jpg": "/BidX/static/media/Pavani.07a56560558956eeb4b0.jpg",
     "static/media/whatsapp.png": "/BidX/static/media/whatsapp.97b90b6e3f8c70254204.png",
     "static/media/Toyota Fortuner.jpg": "/BidX/static/media/Toyota Fortuner.013ad11e928f83f1255e.jpg",
     "static/media/default.jpg": "/BidX/static/media/default.2f667d798a191f559710.jpg",
     "static/media/sv.jpg": "/BidX/static/media/sv.fa413df1dc6d71804ee2.jpg",
+    "static/media/Ninja Bike.jpg": "/BidX/static/media/Ninja Bike.7aac3595ed3a0a3b7f7f.jpg",
     "static/media/vc.jpeg": "/BidX/static/media/vc.40197059617038c9f810.jpeg",
     "index.html": "/BidX/index.html",
     "main.71b843b5.css.map": "/BidX/static/css/main.71b843b5.css.map",
-    "main.415a8425.js.map": "/BidX/static/js/main.415a8425.js.map"
+    "main.d7cb3b0a.js.map": "/BidX/static/js/main.d7cb3b0a.js.map"
   },
   "entrypoints": [
     "static/css/main.71b843b5.css",
-    "static/js/main.415a8425.js"
+    "static/js/main.d7cb3b0a.js"
   ]
 }
