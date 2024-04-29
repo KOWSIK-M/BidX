@@ -131,23 +131,11 @@ const UTrend = ({ changeColor }) => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+            <button class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" >
             <a href="/BidX" class="alogo">BidX</a>
-            </a>
+            </button>
             
-            <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
-                
-                <div class="dropdown">
-                    
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
-                </div>
-            </div>
+            
             
             <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
                 

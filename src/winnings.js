@@ -38,9 +38,13 @@ const Product = ({ product }) => {
             <h2>{product.Pproduct}</h2>
             <div className="price">${product.Prprice}</div>
             <p className="Bdes">{product.Pdes}</p>
+            <h4>{product.Pdate} {product.Ptime}</h4>
             <div className="usB">
                 <img src={`./images/photo/${product.username}.jpg`} alt="" className="dpBid" />
                 <p className="usBT">{product.username}</p>
+            </div>
+            <div className="countdown">
+                <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
             </div>
             <br></br>
             <br></br>
@@ -125,22 +129,13 @@ const Winnings = ({ changeColor }) => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+            <button class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" >
             <a href="/BidX" class="alogo">BidX</a>
-            </a>
+            </button>
             
             <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
                 
-                <div class="dropdown">
-                    
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
-                </div>
+                
             </div>
             
             <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
@@ -183,7 +178,7 @@ const Winnings = ({ changeColor }) => {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onClick={logout}>
+                        <a class="nav-link" onClick={logout} href="/BidX">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>
