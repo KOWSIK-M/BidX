@@ -43,7 +43,8 @@ const Product = ({ product }) => {
                 <p className="usBT">{product.username}</p>
             </div>
             <br></br>
-            <a className="addCart" href="/BidX/checkout">Checkout</a>
+            <br></br>
+            <a className="addBid" href="/BidX/checkout">Checkout</a>
         </div>
     );
 }

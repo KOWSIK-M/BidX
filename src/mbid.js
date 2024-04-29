@@ -130,8 +130,11 @@ const topProf = () => {
       ))}
     </tbody>
   </table>
+  <br></br>
+  <br></br>
+  <br></br>
 </div>
-                
+<p style={{"color":"red","marginLeft":"300px"}}>*The first Participant will be declared as winner by the end of the Auction*</p>
             </div>
         </div>
   );
