@@ -37,7 +37,7 @@ function Website() {
       <div style={{ background: color }}>
         <Routes>
           <Route
-            path="/"
+            path="/BidX"
             element={
               <Home changeColor={changeColor} />
             }
