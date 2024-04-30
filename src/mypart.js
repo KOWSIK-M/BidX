@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import './smhn1.css';
-import { callApi, errorResponse, setSession, getSession } from './main';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { callApi, errorResponse, getSession } from './main';
 
-const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"right","margin-top":"7px","font-size":"14px"}
-const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
+const HS4 = {"float" : "right", "paddingRight" : "10px", "justifyContent":"right","marginTop":"7px","fontSize":"14px"}
+const HS5 = {"float" : "right", "height":"28px", "width":"28px", "borderRadius":"50%" , "marginRight":"10px","marginTop":"3px"}
 
-// Product component
-const Product = ({ product, addToCart }) => {
+const Product = ({ product }) => {
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(product.Pdate, product.Ptime));
 
     useEffect(() => {
@@ -17,7 +14,7 @@ const Product = ({ product, addToCart }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [product.Pdate, product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -36,7 +33,7 @@ const Product = ({ product, addToCart }) => {
     return (
         <div className="item">
             <div className="divImg">
-            <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
+                <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
             </div>
             <h2>{product.Pproduct}</h2>
             <div className="price">${product.Prprice}</div>
@@ -61,45 +58,34 @@ const MyPart = ({ changeColor }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const sid = getSession("sid"); // Get session ID
-                if (sid === "") {
-                    window.location.replace("/BidX");
-                    return;
-                }
-
-                const data1 = JSON.stringify({ sid });
-                const res1 = await callApi("POST", "http://localhost:5000/home/dashboard2", data1, loadProducts, errorResponse);
-            } catch (error) {
-                setLoading(false);
-                handleLoadError(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-    const handleLoadError = (error) => {
-        setLoading(false);
-        setError(error.message || 'An error occurred');
-    }
-    const loadProducts = async (res) => {
-        setLoading(false);
+    const loadProducts = useCallback(async () => {
         try {
+            const sid = getSession("sid"); // Get session ID
+            if (sid === "") {
+                window.location.replace("/BidX");
+                return;
+            }
+
+            const data1 = JSON.stringify({ sid });
+            const res = await callApi("POST", "http://localhost:5000/home/dashboard2", data1, null, errorResponse);
+
             if (!Array.isArray(res) || res.length === 0) {
                 throw new Error('Invalid data returned from dashboard2.');
             }
             const data2 = res[0].Pproduct;
             const productsData = await callApi("POST", "http://localhost:5000/home/dashboard1", { pro: data2 }, "", errorResponse);
             setProducts(productsData instanceof Array ? productsData : []);
+            setLoading(false);
         } catch (error) {
-            handleLoadError(error);
+            setLoading(false);
+            setError(error.message || 'An error occurred');
         }
-    }
-    
-    
-  
+    }, []);
+
+    useEffect(() => {
+        loadProducts();
+    }, [loadProducts]);
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -109,50 +95,50 @@ const MyPart = ({ changeColor }) => {
     }
 
     return (
-        <div style={{ flexDirection:"row", display:"flex" }}>
+        <div style={{ flexDirection: "row", display: "flex" }}>
             <div>
-                <div class="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
-                    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
-                        <div class="container-fluid" style={{ flexDirection:"column", marginLeft:"0px"}}>
-                            <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
+                <div className="whole" style={{ border: "1px solid #000000", width: "240px", height: "740px" }}>
+                    <nav className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection: "column" }}>
+                        <div className="container-fluid" style={{ flexDirection: "column", marginLeft: "0px" }}>
+                            <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
                             </button>
-                            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                                <a href="/BidX" class="alogo">BidX</a>
+                            <a className="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/BidX">
+                                <a href="/BidX" className="alogo">BidX</a>
                             </a>
-                            <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
-                                <ul class="navbar-nav" style={{ flexDirection:"column"}}>
-                                    <li class="nav-item" >
-                                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
-                                            <i class="bi bi-house"></i> Dashboard
+                            <div className="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection: "column" }}>
+                                <ul className="navbar-nav" style={{ flexDirection: "column" }}>
+                                    <li className="nav-item" >
+                                        <a className="nav-link" href="/BidX/mhn1" style={{ color: "black" }}>
+                                            <i className="bi bi-house"></i> Dashboard
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/BidX/utrend">
-                                            <i class="bi bi-bar-chart"></i> Trending
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/BidX/utrend">
+                                            <i className="bi bi-bar-chart"></i> Trending
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/BidX/ucollections">
-                                            <i class="bi bi-bookmarks"></i> Collections
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/BidX/ucollections">
+                                            <i className="bi bi-bookmarks"></i> Collections
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/BidX/mypart">
-                                            <i class="bi bi-box"></i> My Participations
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/BidX/mypart">
+                                            <i className="bi bi-box"></i> My Participations
                                         </a>
                                     </li>
                                 </ul>
-                                <hr class="navbar-divider my-5 opacity-20"/>
-                                <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/BidX/sprofile">
-                                            <i class="bi bi-person-square"></i> Profile
+                                <hr className="navbar-divider my-5 opacity-20" />
+                                <ul className="navbar-nav" style={{ flexDirection: "column" }}>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/BidX/sprofile">
+                                            <i className="bi bi-person-square"></i> Profile
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" >
-                                            <i class="bi bi-box-arrow-left"></i> Logout
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/BidX">
+                                            <i className="bi bi-box-arrow-left"></i> Logout
                                         </a>
                                     </li>
                                 </ul>
@@ -169,7 +155,7 @@ const MyPart = ({ changeColor }) => {
                 <h1>My Participations</h1>
                 <div className="listProduct1">
                     {products.map(product => (
-                        <Product key={product.id} product={product}  />
+                        <Product key={product.id} product={product} />
                     ))}
                 </div>
             </div>

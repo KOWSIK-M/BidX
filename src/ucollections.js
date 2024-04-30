@@ -26,7 +26,7 @@ const UCollections = ({ changeColor }) => {
         const fetchUserName = async () => {
             try {
                 const data = JSON.stringify({ username });
-                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+                callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
@@ -95,23 +95,11 @@ const UCollections = ({ changeColor }) => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/BidX">
             <a href="/BidX" class="alogo">BidX</a>
             </a>
             
-            <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
-                
-                <div class="dropdown">
-                    
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
-                </div>
-            </div>
+
             
             <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
                 
@@ -154,7 +142,7 @@ const UCollections = ({ changeColor }) => {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onClick={logout}>
+                        <a class="nav-link" onClick={logout} href="/BidX">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>

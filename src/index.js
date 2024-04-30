@@ -8,10 +8,8 @@ import Info from './about';
 import Contact from './contact';
 import PP from './pp';
 import TC from './tc';
-import Mh1 from './mh1';
 import FP from './fp';
 import App1 from './ap1';
-import Profile from './profile';
 import SMyProfile from './sprofile';
 import UMyProfile from './uprofile';
 import Mhn1 from './mhn1';
@@ -50,10 +48,8 @@ function Website() {
           <Route path="BidX/contact" element={<Contact changeColor={changeColor} />} />
           <Route path="BidX/pp" element={<PP changeColor={changeColor} />} />
           <Route path="BidX/tc" element={<TC changeColor={changeColor} />} />
-          <Route path="BidX/mh1" element={<Mh1 changeColor={changeColor} />} />
           <Route path="BidX/fp" element={<FP changeColor={changeColor} />} />
           <Route path="BidX/ap1" element={<App1 changeColor={changeColor} />} />
-          <Route path="BidX/profile" element={<Profile changeColor={changeColor} />} />
           <Route path="BidX/sprofile" element={<SMyProfile changeColor={changeColor} />} />
           <Route path="BidX/uprofile" element={<UMyProfile changeColor={changeColor} />} />
           <Route path="BidX/mhn1" element={<Mhn1 changeColor={changeColor} />} />

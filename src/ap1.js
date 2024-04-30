@@ -18,7 +18,7 @@ function App() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  const [user, setUser] = useState(null);
+  const [setUser] = useState(null);
 
   useEffect(() => {
     const unSubscriber = onAuthStateChanged(firebase.auth(), (currentUser) => {
@@ -27,7 +27,7 @@ function App() {
     });
 
     return () => unSubscriber();
-  }, []);
+  }, [setUser]);
 
   return (
     <div className="Ap1b">

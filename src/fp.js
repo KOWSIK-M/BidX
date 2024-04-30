@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { callApi, errorResponse, getSession } from './main';
+import { callApi, errorResponse } from './main';
 import './fp.css';
 
 function FP() {

@@ -96,7 +96,7 @@ function Home(res){
             <a href="/BidX/contact">Contacts</a>
             <a href="/BidX/about">Info</a>
             <div className="dropdown">
-                        <a onClick={toggleDropdown} className="dropbtn">Signup</a>
+                        <button onClick={toggleDropdown} className="dropbtn">Signup</button>
                         <div id="myDropdown" className={`dropdown-content ${dropdownOpen ? 'show' : ''}`}>
                             <a href="/BidX/login">User</a>
                             <a href="/BidX/slogin">Seller</a>
@@ -119,7 +119,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='/BidX/login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='/BidX/login'><a href='/BidX/login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a></a>
+                                <a href='/BidX/login'><a href='/BidX/login'><button class="button-57" ><span class="text">BID NOW</span><span class="text">SignIn</span></button></a></a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='/BidX/login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='/BidX/login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ const Product = ({ product }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [product.Pdate, product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -61,7 +61,7 @@ const Winnings = ({ changeColor }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await callApi("POST", "http://localhost:5000/home/dashboardp", "", loadProduct, errorResponse);
+                callApi("POST", "http://localhost:5000/home/dashboardp", "", loadProduct, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
@@ -76,7 +76,7 @@ const Winnings = ({ changeColor }) => {
         const fetchUserName = async () => {
             try {
                 const data = JSON.stringify({ username });
-                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+                callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }

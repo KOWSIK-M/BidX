@@ -18,7 +18,7 @@ const Product = ({ product, addToCart }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [product.Pdate,product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -69,17 +69,10 @@ const MyBid = ({ changeColor }) => {
                     window.location.replace("/BidX");
                     return;
                 }
-                const fetchUserName = async () => {
-                    try {
-                        const data = getSession('sid');
-                        const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
-                    } catch (error) {
-                        errorResponse(error);
-                    }
-                };
+                
 
                 const data = JSON.stringify({ sid }); // Prepare data to send to server
-                const res = await callApi("POST", "http://localhost:5000/home/dashboard1", data, loadProduct, errorResponse); // Pass sid to server
+                callApi("POST", "http://localhost:5000/home/dashboard1", data, loadProduct, errorResponse); // Pass sid to server
             } catch (error) {
                 errorResponse(error);
             }
@@ -92,13 +85,7 @@ const MyBid = ({ changeColor }) => {
         const productsData = JSON.parse(res);
         setProducts(productsData);
     }
-    const loadUname = (res) => {
-        const userData = JSON.parse(res);
-        const HL1 = document.getElementById("HL1");
-        const IM1 = document.getElementById('IM1');
-        HL1.innerText = userData[0].username;
-        IM1.src = require(`../public/images/photo/${userData[0].imgurl}`);
-    }
+    
     const addToCart = (product) => {
         // Retrieve existing cart items from local storage
         const existingCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -136,7 +123,7 @@ const MyBid = ({ changeColor }) => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/BidX">
                 <a href="/BidX" class="alogo">BidX</a>
             </a>
             
@@ -181,7 +168,7 @@ const MyBid = ({ changeColor }) => {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onClick={logout}>
+                        <a class="nav-link" onClick={logout} href="/Bidx">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>

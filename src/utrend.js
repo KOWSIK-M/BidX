@@ -16,7 +16,7 @@ const Product = ({ product }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [product.Pdate, product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -59,7 +59,7 @@ const UTrend = ({ changeColor }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await callApi("POST", "http://localhost:5000/home/dashboard", "", loadProduct, errorResponse);
+                callApi("POST", "http://localhost:5000/home/dashboard", "", loadProduct, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
@@ -74,7 +74,7 @@ const UTrend = ({ changeColor }) => {
         const fetchUserName = async () => {
             try {
                 const data = JSON.stringify({ username });
-                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+                await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
@@ -131,9 +131,9 @@ const UTrend = ({ changeColor }) => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <button class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" >
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/BidX">
             <a href="/BidX" class="alogo">BidX</a>
-            </button>
+            </a>
             
             
             
@@ -177,7 +177,7 @@ const UTrend = ({ changeColor }) => {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onClick={logout}>
+                        <a class="nav-link" onClick={logout} href="/BidX">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>

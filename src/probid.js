@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { callApi, errorResponse, setSession, getSession } from "./main";
+import { callApi, errorResponse, getSession } from "./main";
 import Axios from 'axios';
 import './proBid.css';
 
@@ -10,18 +10,19 @@ function ProBid ({changeColor}) {
   const [productData, setProductData] = useState(null); // State to store product data
 
   useEffect(() => {
-    fetchMinAmount();
-  }, []);
+    const fetchMinAmount = async () => {
+      try {
+        const url = "http://localhost:5000/home/product";
+        const res = await Axios.post(url, {Pproduct : productName});
+        setProductData(res.data); // Store product data in state
+        setMinAMT(res.data[0].Prprice); // Set minAMT from database
+      } catch (err) {
+        errorResponse(err);
+      }
+    };
 
-  const fetchMinAmount = () => {
-    var url = "http://localhost:5000/home/product";
-    Axios.post(url, {Pproduct : productName})
-        .then(res => {
-          setProductData(res.data); // Store product data in state
-          setMinAMT(res.data[0].Prprice); // Set minAMT from database
-        })
-        .catch(err => errorResponse(err));
-  };
+    fetchMinAmount();
+  }, [productName]);
 
   const bidAmt = () => {
     var BA = document.getElementById('BA');
@@ -86,7 +87,7 @@ function ProBid ({changeColor}) {
             </tr>
           </table>
           <div>
-            <label for="bid-amount">Your Bid Amount:</label>
+            <label htmlFor="bid-amount">Your Bid Amount:</label>
             <input type="number" id="BA" min={minAMT} required/>
             <span className="error-message"></span><br></br>
             <button type="submit" onClick={bidAmt}>Place Bid</button>
