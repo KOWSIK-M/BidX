@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom'; // Changed BrowserRouter to HashRouter
 import Home from './home';
 import Login from './login';
 import SLogin from './slogin';
@@ -33,11 +33,11 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter basename={process.env.PUBLIC_URL}> {/* Changed BrowserRouter to HashRouter */}
       <div style={{ background: color }}>
         <Routes>
           <Route
-            path="/"
+            path="/BidX"
             element={
               <Home changeColor={changeColor} />
             }
@@ -71,10 +71,9 @@ function Website() {
           <Route path="BidX/winnings" element={<Winnings changeColor={changeColor} />} />
           <Route path="BidX/checkout" element={<Checkout changeColor={changeColor} />} />
           <Route path="BidX/pSuccess" element={<PSuccess changeColor={changeColor} />} />
-          
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
