@@ -33,9 +33,9 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <BrowserRouter basename="/BidX">
+    <BrowserRouter>
       <div style={{ background: color }}>
-        <Routes>
+        <Routes basename="/BidX">
           <Route
             path="/"
             element={
