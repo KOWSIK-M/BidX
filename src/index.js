@@ -33,11 +33,11 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <BrowserRouter basename="/BidX">
+    <BrowserRouter>
       <div style={{ background: color }}>
-        <Routes>
+        <Routes basename="/BidX">
           <Route
-            path="/"
+            path="/BidX"
             element={
               <Home changeColor={changeColor} />
             }
@@ -45,7 +45,7 @@ function Website() {
           <Route path="BidX/login" element={<Login changeColor={changeColor} />} />
           <Route path="BidX/slogin" element={<SLogin changeColor={changeColor} />} />
           <Route path="BidX/about" element={<Info changeColor={changeColor} />} />
-          <Route path="/contact" element={<Contact changeColor={changeColor} />} />
+          <Route path="BidX/contact" element={<Contact changeColor={changeColor} />} />
           <Route path="BidX/pp" element={<PP changeColor={changeColor} />} />
           <Route path="BidX/tc" element={<TC changeColor={changeColor} />} />
           <Route path="BidX/fp" element={<FP changeColor={changeColor} />} />

@@ -93,7 +93,7 @@ function Home(res){
         <a href="/BidX" class="logo">BidX</a>
         <nav>
             <a href="/BidX">Home</a>
-            <a href="/contact">Contacts</a>
+            <a href="/BidX/contact">Contacts</a>
             <a href="/BidX/about">Info</a>
             <div className="dropdown">
                         <button onClick={toggleDropdown} className="dropbtn">Signup</button>
