@@ -33,7 +33,7 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <Router> {/* Use HashRouter instead of BrowserRouter */}
+    <Router basename="/BidX"> 
       <div style={{ background: color }}>
         <Routes>
           <Route
