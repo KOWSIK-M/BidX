@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Import HashRouter
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './home';
 import Login from './login';
 import SLogin from './slogin';
@@ -33,7 +33,7 @@ function Website() {
   const [color, changeColor] = useState("#181818");
 
   return (
-    <Router basename="/BidX"> 
+    <BrowserRouter basename="/BidX">
       <div style={{ background: color }}>
         <Routes>
           <Route
@@ -74,7 +74,7 @@ function Website() {
           
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
