@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './login.css';
 import twit from './images/twit.jpg';
 import Lin from './images/in.jpg';
@@ -7,14 +7,20 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { callApi, errorResponse, setSession } from './main';
 
 function Login() {
+    
+    const RKey = `${process.env.REACT_APP_SECRET}`;
+
+    useEffect(() => {
+        console.log("ReCAPTCHA site key:", RKey);
+    }, [RKey]);
+
     function onChange(value) {
         console.log("Captcha value:", value);
-      }
+    }
 
     const [passwordInputType, setPasswordInputType] = useState("password");
     const [passwordInputType1, setPasswordInputType1] = useState("password");
     const [passwordInputType2, setPasswordInputType2] = useState("password");
-    
     const [mobileNo, setMobileNo] = useState("");
     const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
@@ -32,13 +38,13 @@ function Login() {
     const togglePasswordVisibility1 = () => {
         setPasswordInputType1(prevType => prevType === "password" ? "text" : "password");
     };
+
     const togglePasswordVisibility2 = () => {
         setPasswordInputType2(prevType => prevType === "password" ? "text" : "password");
     };
 
     const handleFullNameChange = (e) => {
         const value = e.target.value;
-        // Validation for full name (only characters and spaces allowed)
         if (/^[a-zA-Z\s]*$/.test(value)) {
             setFullName(value);
         }
@@ -46,7 +52,6 @@ function Login() {
 
     const handleMobileNoChange = (e) => {
         const value = e.target.value;
-        // Validation for mobile number (only 10 digits allowed)
         if (/^\d{0,10}$/.test(value)) {
             setMobileNo(value);
         }
@@ -72,66 +77,22 @@ function Login() {
         switchC2.current.classList.toggle(isHiddenClass);
     };
 
-    function register(){
-        var RT1 = document.getElementById('RT1');
-        var RT2 = document.getElementById('RT2');
-        var RT3 = document.getElementById('RT3');
-        var RT4 = document.getElementById('RT4');
-        var RT5 = document.getElementById('RT5');
-        var RT6 = document.getElementById('RT6');
-        var RT7 = document.getElementById('RT7');
+    const register = (e) => {
+        const RT1 = document.getElementById('RT1');
+        const RT2 = document.getElementById('RT2');
+        const RT3 = document.getElementById('RT3');
+        const RT4 = document.getElementById('RT4');
+        const RT5 = document.getElementById('RT5');
+        const RT6 = document.getElementById('RT6');
+        const RT7 = document.getElementById('RT7');
 
-        if(RT1.value==="")
-        {
-
-            RT1.focus();
-            return;
-        }
-        if(RT2.value==="")
-        {
-
-            RT2.focus();
-            return;
-        }
-        if(RT3.value==="")
-        {
-
-            RT3.focus();
-            return;
-        }
-        if(RT4.value==="")
-        {
-
-            RT4.focus();
-            return;
-        }
-        if(RT5.value==="")
-        {
-
-            RT5.focus();
-            return;
-        }
-        if(RT6.value==="")
-        {
-
-            RT6.focus();
-            return;
-        }
-        if(RT7.value==="")
-        {
-            RT7.focus();
-            return;
-        }
-        if(RT6.value!==RT7.value)
-        {
-            alert("Password and Re-type Password must be same");
-
-            RT6.focus();
+        if(RT1.value === "" || RT2.value === "" || RT3.value === "" || RT4.value === "" || RT5.value === "" || RT6.value === "" || RT7.value === "" || RT6.value !== RT7.value) {
+            alert("Please fill in all fields correctly");
             return;
         }
 
-        var url = "http://localhost:5000/registration/signup";
-        var data = JSON.stringify({
+        const url = "http://localhost:5000/registration/signup";
+        const data = JSON.stringify({
             fullname : RT1.value,
             dob : RT2.value,
             mobileno : RT3.value,
@@ -140,132 +101,125 @@ function Login() {
             pwd : RT6.value,
             imgurl : "default.jpg"
         });
+
         callApi("POST", url,  data, registeredSuccess, errorResponse);
-        //alert("Registered successfully...");
 
-        RT1.value="";
-        RT2.value="";
-        RT3.value="";
-        RT4.value="";
-        RT5.value="";
-        RT6.value="";
-        RT7.value="";
+        RT1.value = "";
+        RT2.value = "";
+        RT3.value = "";
+        RT4.value = "";
+        RT5.value = "";
+        RT6.value = "";
+        RT7.value = "";
 
-        var login = document.getElementById('login');
-        var registration = document.getElementById('registration');
-        registration.style.display = 'none';
-        login.style.display = 'block';
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('registration').style.display = 'none';
     }
 
-    function registeredSuccess(res)
-    {
-        var data = JSON.parse(res);
-        alert(data);
+    const registeredSuccess = (res) => {
+        const data = JSON.parse(res);
+        alert(data.message || "Registered successfully");
     }
 
-//Login
+    const validate = (e) => {
+        const T1 = document.getElementById('T1');
+        const T2 = document.getElementById('T2');
 
-window.onload = function(){
-    var login = document.getElementById('login');
-    login.style.display="block";
-}
+        const url = "http://localhost:5000/login/signin";
+        const data = JSON.stringify({
+            username: T1.value,
+            pwd: T2.value
+        });
 
-function validate()
-{
-    var T1=document.getElementById('T1');
-    var T2=document.getElementById('T2');
-
-    var url = "http://localhost:5000/login/signin";
-    var data = JSON.stringify({
-        username : T1.value,
-        pwd : T2.value
-    });
-    callApi("POST", url, data, loginSuccess, errorResponse);
-}
-
-function loginSuccess(res)
-{
-    var data = JSON.parse(res);
-    if(data === 1){
-        var T1=document.getElementById('T1');
-        setSession("sid", T1.value, 0.5);
-        window.location.replace("/BidX/mhn1");
+        callApi("POST", url, data, loginSuccess, errorResponse);
     }
-    else
-        alert("Invalid Credentials!");
-}
+
+    const loginSuccess = (res) => {
+        const data = JSON.parse(res);
+        if(data === 1){
+            const T1 = document.getElementById('T1');
+            setSession("sid", T1.value, 0.5);
+            window.location.replace("/BidX/mhn1");
+        } else {
+            alert("Invalid Credentials!");
+        }
+    }
+
+    useEffect(() => {
+        const login = document.getElementById('login');
+        login.style.display = "block";
+    }, []);
 
     return (
-       <div className='mmm'>
-
-        <header className='lch'>
-        <a href="/BidX" class="logo">BidX</a>
-        <nav>
-            <a className='bl' href="/BidX">Home</a>
-            <a className='bl' href="/BidX/contact">Contacts</a>
-            <a className='bl' href="/BidX/about">Info</a>
-            <a className='bl' href="/BidX/login">Sign In</a>
-        </nav>
-    </header>
-     <div className='bdy'> 
-        <div className="main">
-            <div className="container a-container" id="login" ref={aContainer}>
-                <form className="form" id="b-form" >
-                        <h2 className="form_title titles">User Sign In</h2>
-                        <div className="form__icons"></div>
-                        <div className="form__icons"><div className='imoo'><a class="me" href="https://twitter.com/Medam_Kowsik"><img className="form__icon" src={twit} alt="App Logo"/></a></div>
-                        <a class="me" href="https://www.linkedin.com/in/medam-kowsik-975479282"><img className="form__icon" src={Lin} alt="App Logo"/></a>
-                        <a class="me" href="https://www.facebook.com/profile.php?id=9290872450"><img className="form__icon" src={fb} alt="App Logo"/></a></div>
-                        <br></br><input className="form__input" type="text" id='T1' placeholder="Username"/>
-                        <div className="password-wrapper">
-                            <input className="form__input" type={passwordInputType1} id='T2' placeholder="Password"/>
-                            <span onClick={togglePasswordVisibility1} style={{cursor: 'pointer'}}>{passwordInputType1 === "password" ? "👁" : "🚫"}</span>
+        <div className='mmm'>
+            <header className='lch'>
+                <a href="/BidX" className="logo">BidX</a>
+                <nav>
+                    <a className='bl' href="/BidX">Home</a>
+                    <a className='bl' href="/BidX/contact">Contacts</a>
+                    <a className='bl' href="/BidX/about">Info</a>
+                    <a className='bl' href="/BidX/login">Sign In</a>
+                </nav>
+            </header>
+            <div className='bdy'> 
+                <div className="main">
+                    <div className="container a-container" id="login" ref={aContainer}>
+                        <form className="form" id="b-form">
+                            <h2 className="form_title titles">User Sign In</h2>
+                            <div className="form__icons">
+                                <a className="me" href="https://twitter.com/Medam_Kowsik"><img className="form__icon" src={twit} alt="App Logo"/></a>
+                                <a className="me" href="https://www.linkedin.com/in/medam-kowsik-975479282"><img className="form__icon" src={Lin} alt="App Logo"/></a>
+                                <a className="me" href="https://www.facebook.com/profile.php?id=9290872450"><img className="form__icon" src={fb} alt="App Logo"/></a>
+                            </div>
+                            <input className="form__input" type="text" id='T1' placeholder="Username"/>
+                            <div className="password-wrapper">
+                                <input className="form__input" type={passwordInputType1} id='T2' placeholder="Password"/>
+                                <span onClick={togglePasswordVisibility1} style={{cursor: 'pointer'}}>{passwordInputType1 === "password" ? "👁" : "🚫"}</span>
+                            </div>
+                            <ReCAPTCHA sitekey={RKey} onChange={onChange} />
+                            <a href="/BidX/validatePhoneno" className="form__link">Forgot your password?</a>
+                            <button className="form__button button submit" onClick={(e) => { validate(); }}>SIGN IN</button>
+                        </form>
+                    </div>
+                    <div className="container b-container" id="registration" ref={bContainer}>
+                        <form className="form" id="a-form">
+                            <h2 className="form_title titles">Create Account</h2>
+                            <input className="form__input" type="text" id='RT1' value={fullName} onChange={handleFullNameChange} placeholder="Full Name"/>
+                            <input className="form__input" type="date" id='RT2' placeholder="DOB"/>
+                            <input className="form__input" type="text" id='RT3' value={mobileNo} onChange={handleMobileNoChange} placeholder="Mobile No."/>
+                            <input className="form__input" type="text" id='RT4' value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
+                            <input className="form__input" type="text" id='RT5' placeholder="Email"/>
+                            <div className="password-wrapper">
+                                <input className="form__input" type={passwordInputType} id='RT6' placeholder="Password"/>
+                                <span onClick={togglePasswordVisibility} style={{cursor: 'pointer'}}>{passwordInputType === "password" ? "👁" : "🚫"}</span>
+                            </div>
+                            <div className="password-wrapper">
+                                <input className="form__input" type={passwordInputType2} id='RT7' placeholder="Confirm Password"/>
+                                <span onClick={togglePasswordVisibility2} style={{cursor: 'pointer'}}>{passwordInputType2 === "password" ? "👁" : "🚫"}</span>
+                            </div>
+                            <button className="form__button button submit" onClick={(e) => { register(); }}>SIGN UP</button>
+                        </form>
+                    </div>
+                    <div className="switch" id="switch-cnt" ref={switchCtn}>
+                        <div className="switch__circle" ref={switchCircle}></div>
+                        <div className="switch__circle switch__circle--t" ref={switchCircle}></div>
+                        <div className="switch__container" id="switch-c1" ref={switchC1}>                                                                                                                                                                                                                                                       
+                            <h2 className="switch__title titles">Hello Friend!</h2>
+                            <p className="switch__description descriptions">Enter your personal details and start journey with us</p>
+                            <button className="switch__button button switch-btn" onClick={changeForm}>SIGN UP</button>
                         </div>
-                        <br></br><br></br>
-                        <ReCAPTCHA sitekey="6LfY_WwpAAAAAMvTSu4nCFyRKWjZm0HZ9dlnMxkE" onChange={onChange} />
-                        <a href="/BidX/validatePhoneno" className="form__link">Forgot your password?</a>
-                        <button className="form__button button submit" onClick={validate} >SIGN IN</button>
-                    </form>
-            </div>
-            <div className="container b-container" id="registration" ref={bContainer}>
-            <form className="form" id="a-form">
-                    <h2 className="form_title titles">Create Account</h2>
-                    <input className="form__input" type="text" id='RT1' value={fullName} onChange={handleFullNameChange} placeholder="Full Name"/>
-                    <input className="form__input" type="date" id='RT2' placeholder="DOB"/>
-                    <input className="form__input" type="text" id='RT3' value={mobileNo} onChange={handleMobileNoChange} placeholder="Mobile No."/>
-                    <input className="form__input" type="text" id='RT4' value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
-                    <input className="form__input" type="text" id='RT5' placeholder="Email"/>
-                    <div className="password-wrapper">
-                        <input className="form__input" type={passwordInputType} id='RT6' placeholder="Password"/>
-                        <span onClick={togglePasswordVisibility} style={{cursor: 'pointer'}}>{passwordInputType === "password" ? "👁" : "🚫"}</span>
+                        <div className="switch__container is-hidden" id="switch-c2" ref={switchC2}>
+                            <h2 className="switch__title titles">Welcome!</h2>
+                            <p className="switch__description descriptions">To keep connected with us please login with your personal info</p>
+                            <button className="switch__button button switch-btn" onClick={changeForm}>SIGN IN</button>
+                        </div>
                     </div>
-                    <div className="password-wrapper">
-                        <input className="form__input" type={passwordInputType2} id='RT7' placeholder="Confirm Password"/>
-                        <span onClick={togglePasswordVisibility2} style={{cursor: 'pointer'}}>{passwordInputType2 === "password" ? "👁" : "🚫"}</span>
-                    </div>
-                    <button className="form__button button submit" onClick={register} >SIGN UP</button>
-                </form>
-            </div>
-            <div className="switch" id="switch-cnt" ref={switchCtn}>
-                <div className="switch__circle" ref={switchCircle}></div>
-                <div className="switch__circle switch__circle--t" ref={switchCircle}></div>
-                <div className="switch__container" id="switch-c1" ref={switchC1}>                                                                                                                                                                                                                                                       
-                <h2 className="switch__title titles">Hello Friend !</h2>
-                    <p className="switch__description descriptions">Enter your personal details and start journey with us</p>
-                    <button className="switch__button button switch-btn" onClick={changeForm}>SIGN UP</button>
-                </div>
-                <div className="switch__container is-hidden" id="switch-c2" ref={switchC2}>
-                <h2 className="switch__title titles">Welcome !</h2>
-                    <p className="switch__description descriptions">To keep connected with us please login with your personal info</p>
-                    <button className="switch__button button switch-btn" onClick={changeForm}>SIGN IN</button>
                 </div>
             </div>
-        </div>
-        </div>
-        <div className="footer">
-                    <div className="footer-content">
+            <div className="footer">
+                <div className="footer-content">
                     <div className="privacy-policy">
-                    <a href="/BidX/pp">Privacy Policy</a>
+                        <a href="/BidX/pp">Privacy Policy</a>
                     </div>
                     <div className="terms-conditions">
                         <a href="/BidX/tc">Terms & Conditions</a>
@@ -274,7 +228,7 @@ function loginSuccess(res)
                         <a href="/BidX">BidX©</a>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     );
 }

@@ -1,12 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import './login.css';
 import twit from './images/twit.jpg';
 import Lin from './images/in.jpg';
 import fb from './images/fb.jpg';
+import ReCAPTCHA from "react-google-recaptcha";
 import { callApi, errorResponse, setSession } from './main';
 
 function SLogin() {
-    
+    const RKey = `${process.env.REACT_APP_SECRET}`;
+
+    useEffect(() => {
+        console.log("ReCAPTCHA site key:", RKey);
+    }, [RKey]);
+
+    function onChange(value) {
+        console.log("Captcha value:", value);
+    }
 
     const [passwordInputType, setPasswordInputType] = useState("password");
     const [passwordInputType1, setPasswordInputType1] = useState("password");
@@ -219,6 +228,7 @@ function loginSuccess(res)
                             <span onClick={togglePasswordVisibility1} style={{cursor: 'pointer'}}>{passwordInputType1 === "password" ? "👁" : "🚫"}</span>
                         </div>
                         <br></br><br></br>
+                        <ReCAPTCHA sitekey={RKey} onChange={onChange} />
                         <a href="/BidX/validatePhoneno" className="form__link">Forgot your password?</a>
                         <button className="form__button button submit" onClick={validate} >SIGN IN</button>
                     </form>
