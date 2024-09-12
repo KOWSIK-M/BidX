@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './profile.css';
-import { errorResponse, setSession, getSession } from './main';
-import SellerNav from './components/SellerNav';
+import {errorResponse, setSession, getSession } from './main';
+import Navbar from "./components/NavBar";
 
 function fetchProfileInfo(username) {
     return fetch('http://localhost:5000/profile', {
@@ -28,7 +28,7 @@ function uploadPhoto(file, username) {
     .catch(err => errorResponse(err));
 }
 
-const SMyProfile = ({changeColor}) => {
+const UMyProfile = ({changeColor}) => {
     changeColor("#fff");
     const [profileData, setProfileData] = useState({});
     const [profileImage, setProfileImage] = useState('');
@@ -91,7 +91,7 @@ const SMyProfile = ({changeColor}) => {
         <div style={{ flexDirection: "row", display: "flex" }}>
             <div>
                 <div className="whole" style={{ border: "1px solid #000000", width: "240px", height: "740px" }}>
-                    <SellerNav onLogout={logout}></SellerNav>
+                    <Navbar onLogout={logout}></Navbar>
                 </div>
             </div>
             <div className="outletprofile">
@@ -134,4 +134,4 @@ const SMyProfile = ({changeColor}) => {
     );
 };
 
-export default SMyProfile;
+export default UMyProfile;

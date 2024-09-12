@@ -1,0 +1,193 @@
+/* modal.css */
+
+/* You can paste your Tailwind CSS styles here */
+/* Ensure you have Tailwind CSS properly configured in your project */
+
+/* Example Tailwind CSS styles for the modal */
+.fixed {
+    position: fixed;
+  }
+  
+  .inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .overflow-y-auto {
+    overflow-y: auto;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .items-end {
+    align-items: flex-end;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  .pt-4 {
+    padding-top: 1rem;
+  }
+  
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .pb-20 {
+    padding-bottom: 5rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .sm\:block {
+    display: block;
+  }
+  
+  .sm\:p-0 {
+    padding: 0;
+  }
+  
+  .inline-block {
+    display: inline-block;
+  }
+  
+  .align-middle {
+    vertical-align: middle;
+  }
+  
+  .h-screen {
+    height: 100vh;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .mt-3 {
+    margin-top: 0.75rem;
+  }
+  
+  .text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  
+  .leading-6 {
+    line-height: 1.5rem;
+  }
+  
+  .font-medium {
+    font-weight: 500;
+  }
+  
+  .text-gray-900 {
+    color: #4a5568;
+  }
+  
+  .mt-2 {
+    margin-top: 0.5rem;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .text-gray-500 {
+    color: #718096;
+  }
+  
+  .mt-5 {
+    margin-top: 1.25rem;
+  }
+  
+  .sm\:mt-6 {
+    margin-top: 1.5rem;
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+  
+  .rounded-md {
+    border-radius: 0.375rem;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .border {
+    border-width: 1px;
+  }
+  
+  .border-transparent {
+    border-color: transparent;
+  }
+  
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .bg-indigo-600 {
+    background-color: #4f46e5;
+  }
+  
+  .text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  .text-white {
+    color: #fff;
+  }
+  
+  .hover\:bg-indigo-500:hover {
+    background-color: #4338ca;
+  }
+  
+  .focus\:outline-none:focus {
+    outline: 0;
+  }
+  
+  .focus\:border-indigo-700:focus {
+    border-color: #6b46c1;
+  }
+  
+  .focus\:shadow-outline-indigo:focus {
+    box-shadow: 0 0 0 3px rgba(103, 113, 210, 0.5);
+  }
+  
+  .transition {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ease-in-out {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .duration-150 {
+    transition-duration: 150ms;
+  }
+  
+  /* Add more Tailwind CSS styles as needed */

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import './smhn1.css';
 import { callApi, errorResponse, setSession, getSession } from './main';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import SellerNav from "./components/SellerNav";
+import Header from "./components/Header";
 
-const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"right","margin-top":"7px","font-size":"14px"}
-const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
+// Inline styles for header elements
+const HS4 = { float: "right", paddingRight: "10px", justifyContent: "right", marginTop: "7px", fontSize: "14px" };
+const HS5 = { float: "right", height: "28px", width: "28px", borderRadius: "50%", marginRight: "10px", marginTop: "3px" };
 
-// Product component
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(product.Pdate, product.Ptime));
 
     useEffect(() => {
@@ -16,7 +19,7 @@ const Product = ({ product }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [product.Pdate, product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -34,184 +37,140 @@ const Product = ({ product }) => {
 
     return (
         <div className="item">
-            <img src={`./images/bids/${product.username}/${product.Pimgurl}`} alt="" className="ProImg" />
+            <div className="divImg">
+                <img src={`data:image/jpeg;base64,${product.Pimg}`} alt="" className="ProImg" />
+            </div>
             <h2>{product.Pproduct}</h2>
             <div className="price">${product.Prprice}</div>
             <p className="Bdes">{product.Pdes}</p>
-            <h4>{product.Pdate} {product.Ptime}</h4>
             <div className="usB">
-                <img src={`./images/photo/${product.username}.jpg`} alt="" className="dpBid" />
+                <img src={`data:image/jpeg;base64,${product.userProfileImage}`} alt="" className="dpBid" />
                 <p className="usBT">{product.username}</p>
             </div>
             <div className="countdown">
                 <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
             </div>
-            <button className="addCart">Add To Cart</button>
+            <Link to={`/BidX/probid/${product.Pproduct}`}>
+                <button className="addBid">Bid Now</button>
+            </Link>
+            <button className="addBid" onClick={() => addToCart(product)}>
+                <i className="bi bi-bookmarks"></i>&nbsp;Add To Collections
+            </button>
         </div>
     );
 }
 
 const SMhn1 = ({ changeColor }) => {
-    changeColor("#fff");
+    const [sid, setSid] = useState(getSession("sid"));
     const [searchQuery, setSearchQuery] = useState("");
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]); // Ensure it's initialized as an array
+    const [username, setUsername] = useState("");
+    const [profileImage, setProfileImage] = useState("");
 
+    // Redirect if sid is empty
+    useEffect(() => {
+        if (!sid) {
+            window.location.replace("/BidX");
+        }
+    }, [sid]);
+
+    // Fetch username and profile image
+    useEffect(() => {
+        if (sid) {
+            const url = "http://localhost:5000/home/uname";
+            const data = JSON.stringify({ username: sid });
+            callApi("POST", url, data, loadUname, errorResponse);
+        }
+    }, [sid]);
+
+    // Fetch product data
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await callApi("POST", "http://localhost:5000/home/dashboard", "", loadProduct, errorResponse);
-            } catch (error) {
-                errorResponse(error);
-            }
-        };
-
-        const username = getSession("sid");
-        if (username === "") {
-            window.location.replace("/");
-            return;
-        }
-
-        const fetchUserName = async () => {
-            try {
-                const data = JSON.stringify({ username });
-                const res = await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+                callApi("POST", "http://localhost:5000/home/dashboard", "", loadProduct, errorResponse);
             } catch (error) {
                 errorResponse(error);
             }
         };
 
         fetchData();
-        fetchUserName();
     }, []);
 
     const loadUname = (res) => {
-        const userData = JSON.parse(res);
-        const HL1 = document.getElementById("HL1");
-        const IM1 = document.getElementById('IM1');
-        HL1.innerText = userData[0].username;
-        IM1.src = require(`../public/images/photo/${userData[0].imgurl}`);
-    }
+        var data = JSON.parse(res);
+        var HL1 = document.getElementById("HL1");
+        var IM1 = document.getElementById('IM1');
+        
+        HL1.innerText = `${data[0].username}`;
+        IM1.src = `data:image/jpeg;base64,${data[0].imgurl}`;
+    };
 
     const loadProduct = (res) => {
         const productsData = JSON.parse(res);
-        setProducts(productsData);
-    }
+
+        // Ensure the data is an array before setting state
+        if (Array.isArray(productsData)) {
+            setProducts(productsData);
+        } else {
+            console.error("Products data is not an array", productsData);
+            setProducts([]);
+        }
+    };
+
+    const addToCart = (product) => {
+        const existingCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const updatedCartItems = [...existingCartItems, product];
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    };
 
     const logout = () => {
         setSession("sid", "", -1);
-        window.location.replace("/");
+        window.location.replace("/BidX");
     };
 
     const topProf = () => {
-        window.location.replace("/sprofile");
+        window.location.replace("/BidX/sprofile");
     };
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
 
-    const filteredProducts = products.filter(product =>
-        product.Pproduct.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredProducts = Array.isArray(products)
+        ? products.filter(product =>
+            product.Pproduct.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : [];
+
+    // Change color on mount
+    useEffect(() => {
+        changeColor("#fff");
+    }, [changeColor]);
 
     return (
-        <div style={{ flexDirection:"row", display:"flex" }}>
+        <div style={{ flexDirection: "row", display: "flex" }}>
             <div>
-            <div class="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
-    
-    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
-        <div class="container-fluid" style={{ flexDirection:"column", marginLeft:"0px"}}>
-            
-            <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="..."/>
-            </a>
-            
-            <div class="navbar-user d-lg-none" style={{ flexDirection:"column", marginLeft:"0px;"}}>
-                
-                <div class="dropdown">
-                    
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
+                <div className="whole" style={{ border: "1px solid #000000", width: "240px", height: "740px" }}>
+                    <SellerNav onLogout={logout} />
                 </div>
-            </div>
-            
-            <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
-                
-                <ul class="navbar-nav" style={{ flexDirection:"column"}}>
-                    <li class="nav-item" >
-                        <a class="nav-link" href="/smhn1" style={{ color:"black"}}>
-                            <i class="bi bi-house"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/trend">
-                            <i class="bi bi-bar-chart"></i> Trending
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat"></i> Messages
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-bookmarks"></i> Collections
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/crBid">
-                            <i class="bi bi-people"></i> Create a Bid
-                        </a>
-                    </li>
-                </ul>
-                
-                <hr class="navbar-divider my-5 opacity-20"/>
-                
-                <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/sprofile">
-                            <i class="bi bi-person-square"></i> Profile
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onClick={logout}>
-                            <i class="bi bi-box-arrow-left"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    </div>
             </div>
             <div className="outlet">
                 <div className="sheaderB" onClick={topProf}>
-                    <label id="HL1" style={HS4}></label>
-                    <img id="IM1" src="" alt="" style={HS5} className="imgstyle" />
+                    <Header />
                 </div>
                 <h1>Dashboard</h1>
-                
-                <input 
-                    type="text" 
-                    value={searchQuery} 
-                    onChange={handleSearch} 
-                    placeholder="Search for products..." 
-                    title="Type in a product name" 
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    placeholder="Search for products..."
+                    title="Type in a product name"
                     className="searchInput"
                 />
                 <FontAwesomeIcon icon={faSearch} className="searchIcon" />
                 <div className="listProduct">
                     {filteredProducts.map(product => (
-                        <Product key={product.id} product={product} />
+                        <Product key={product.id} product={product} addToCart={addToCart} />
                     ))}
                 </div>
             </div>

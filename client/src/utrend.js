@@ -3,8 +3,9 @@ import './smhn1.css';
 import { callApi, errorResponse, setSession, getSession } from './main';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import SellerNav from "./components/SellerNav";
-import Header from "./components/Header";
+
+const HS4 = {"float" : "right", "padding-right" : "10px", "justify-content":"right","margin-top":"7px","font-size":"14px"}
+const HS5 = {"float" : "right", "height":"28px", "width":"28px", "border-radius":"50%" , "margin-right":"10px","margin-top":"3px"}
 
 // Product component
 const Product = ({ product }) => {
@@ -15,7 +16,7 @@ const Product = ({ product }) => {
             setTimeRemaining(calculateTimeRemaining(product.Pdate, product.Ptime));
         }, 1000);
         return () => clearInterval(timer);
-    }, [product.Pdate,product.Ptime]);
+    }, [product.Pdate, product.Ptime]);
 
     function calculateTimeRemaining(date, time) {
         const targetDate = new Date(date + "T" + time);
@@ -45,29 +46,16 @@ const Product = ({ product }) => {
             <div className="countdown">
                 <p>Time Remaining: {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s</p>
             </div>
-            <button className="addCart">Add To Cart</button>
+            <button className="addBid">Add To Cart</button>
         </div>
     );
 }
 
-const Trend = ({ changeColor }) => {
+const UTrend = ({ changeColor }) => {
     changeColor("#fff");
-    const [sid] = useState(getSession("sid"));
     const [searchQuery, setSearchQuery] = useState("");
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        if (!sid) {
-            window.location.replace("/BidX");
-        }
-    }, [sid]);
-    useEffect(() => {
-        if (sid) {
-            const url = "http://localhost:5000/home/uname";
-            const data = JSON.stringify({ username: sid });
-            callApi("POST", url, data, loadUname, errorResponse);
-        }
-    }, [sid]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -77,16 +65,31 @@ const Trend = ({ changeColor }) => {
             }
         };
 
+        const username = getSession("sid");
+        if (username === "") {
+            window.location.replace("/BidX");
+            return;
+        }
+
+        const fetchUserName = async () => {
+            try {
+                const data = JSON.stringify({ username });
+                await callApi("POST", "http://localhost:5000/home/uname", data, loadUname, errorResponse);
+            } catch (error) {
+                errorResponse(error);
+            }
+        };
+
         fetchData();
+        fetchUserName();
     }, []);
-    
+
     const loadUname = (res) => {
-        var data = JSON.parse(res);
-        var HL1 = document.getElementById("HL1");
-        var IM1 = document.getElementById('IM1');
-        
-        HL1.innerText = `${data[0].username}`;
-        IM1.src = `data:image/jpeg;base64,${data[0].imgurl}`;
+        const userData = JSON.parse(res);
+        const HL1 = document.getElementById("HL1");
+        const IM1 = document.getElementById('IM1');
+        HL1.innerText = userData[0].username;
+        IM1.src = require(`../public/images/photo/${userData[0].imgurl}`);
     }
 
     const loadProduct = (res) => {
@@ -105,7 +108,7 @@ const Trend = ({ changeColor }) => {
     };
 
     const topProf = () => {
-        window.location.replace("/BidX/sprofile");
+        window.location.replace("/BidX/uprofile");
     };
 
     const handleSearch = (event) => {
@@ -121,12 +124,73 @@ const Trend = ({ changeColor }) => {
             <div>
             <div class="whole" style={{ border:"1px solid #000000" , width:"240px",height:"740px"}}>
     
-            <SellerNav onLogout={logout}/>
+    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" style={{ flexDirection:"column"}}>
+        <div class="container-fluid" style={{ flexDirection:"column", marginLeft:"0px"}}>
+            
+            <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/BidX">
+            <a href="/BidX" class="alogo">BidX</a>
+            </a>
+            
+            
+            
+            <div class="collapse navbar-collapse" id="sidebarCollapse" style={{ flexDirection:"column"}}>
+                
+                <ul class="navbar-nav" style={{ flexDirection:"column"}}>
+                    <li class="nav-item" >
+                        <a class="nav-link" href="/BidX/mhn1" style={{ color:"black"}}>
+                            <i class="bi bi-house"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/utrend">
+                            <i class="bi bi-bar-chart"></i> Trending
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/ucollections">
+                            <i class="bi bi-bookmarks"></i> Collections
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/mypart">
+                            <i class="bi bi-box"></i> My Participations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/winnings">
+                            <i class="bi bi-trophy"></i> My Winnings
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="navbar-divider my-5 opacity-20"/>
+                
+                <ul class="navbar-nav"  style={{ flexDirection:"column"}}>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BidX/uprofile">
+                            <i class="bi bi-person-square"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onClick={logout} href="/BidX">
+                            <i class="bi bi-box-arrow-left"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     </div>
             </div>
             <div className="outlet">
                 <div className="sheaderB" onClick={topProf}>
-                    <Header></Header>
+                    <label id="HL1" style={HS4}></label>
+                    <img id="IM1" src="" alt="" style={HS5} className="imgstyle" />
                 </div>
                 <h1><i class="bi bi-bar-chart"></i>Trending</h1>
                 
@@ -149,4 +213,4 @@ const Trend = ({ changeColor }) => {
     );
 };
 
-export default Trend;
+export default UTrend;

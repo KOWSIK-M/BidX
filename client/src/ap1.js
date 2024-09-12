@@ -5,8 +5,13 @@ import firebase from "firebase/compat/app";
 import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
+  const key1 = `${process.env.REACT_APP_FIREBASE}`;
+  useEffect(() => {
+    console.log("Firebase site key:", key1);
+}, [key1]);
+
   const firebaseConfig = {
-    apiKey: "AIzaSyB-MzKEbyEMyb-WtDER3-QQ4Oaf8lJgIMY",
+    apiKey: key1,
     authDomain: "bidx-41239.firebaseapp.com",
     projectId: "bidx-41239",
     storageBucket: "bidx-41239.appspot.com",
@@ -18,7 +23,7 @@ function App() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  const [user, setUser] = useState(null);
+  const [setUser] = useState(null);
 
   useEffect(() => {
     const unSubscriber = onAuthStateChanged(firebase.auth(), (currentUser) => {
@@ -27,7 +32,7 @@ function App() {
     });
 
     return () => unSubscriber();
-  }, []);
+  }, [setUser]);
 
   return (
     <div className="Ap1b">

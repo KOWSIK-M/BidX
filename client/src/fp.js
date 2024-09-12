@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { callApi, errorResponse, getSession } from './main';
+import { callApi, errorResponse } from './main';
 import './fp.css';
 
 function FP() {
@@ -76,7 +76,7 @@ function validatePwd(res)
 
 function updatePwdSuccess(res)
 {
-    window.location.replace("login");
+    window.location.replace("/BidX");
     var data = JSON.parse(res);
     alert(data);
 }
@@ -86,9 +86,9 @@ function updatePwdSuccess(res)
     return (
         <div className="fps">
         <header className='lch1'>
-        <a href="/" class="logo">BidX</a>
+        <a href="/BidX" class="logo">BidX</a>
         <nav>
-            <a className='blll' href="login">Go Back &#8617;</a>
+            <a className='blll' href="/BidX/login">Go Back &#8617;</a>
         </nav>
     </header>
         <div id="box">

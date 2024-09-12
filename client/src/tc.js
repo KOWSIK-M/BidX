@@ -4,9 +4,9 @@ function TC(){
     return(
       <div>
       <header className="ch" >
-  <a href="#" class="alogo">BidX</a>
+  <a href="/BidX" class="alogo">BidX</a>
   <nav>
-      <a className="rt" href="/">Home</a>
+      <a className="rt" href="/BidX">Home</a>
   </nav>
   </header>
   <div className="q">
@@ -59,7 +59,7 @@ function TC(){
 <br></br>
 
 <br></br><span>Contact Information:</span>
-<br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- For any questions or concerns regarding this Privacy Policy, users can contact us at <a href="contact">[contact]</a>.
+<br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- For any questions or concerns regarding this Privacy Policy, users can contact us at <a href="/BidX/contact">[contact]</a>.
 <br></br><br></br>
 By using the Online Bidding/Auction Platform, you acknowledge and agree to the terms outlined in this Privacy Policy.
       </p>

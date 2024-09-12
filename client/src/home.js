@@ -90,16 +90,16 @@ function Home(res){
         return(
             <div className='hs' style={{ backgroundColor:'#181818' }}>
             <header>
-        <a href="/" class="logo">BidX</a>
+        <a href="/BidX" class="logo">BidX</a>
         <nav>
-            <a href="/">Home</a>
-            <a href="contact">Contacts</a>
-            <a href="about">Info</a>
+            <a href="/BidX">Home</a>
+            <a href="/BidX/contact">Contacts</a>
+            <a href="/BidX/about">Info</a>
             <div className="dropdown">
-                        <a onClick={toggleDropdown} className="dropbtn">Signup</a>
+                        <button onClick={toggleDropdown} className="dropbtn">Signup</button>
                         <div id="myDropdown" className={`dropdown-content ${dropdownOpen ? 'show' : ''}`}>
-                            <a href="login">User</a>
-                            <a href="slogin">Seller</a>
+                            <a href="/BidX/login">User</a>
+                            <a href="/BidX/slogin">Seller</a>
                         </div>
                     </div>
         </nav>
@@ -119,7 +119,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='login'><a href='login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a></a>
+                                <a href='/BidX/login'><a href='/BidX/login'><button class="button-57" ><span class="text">BID NOW</span><span class="text">SignIn</span></button></a></a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@ function Home(res){
                             </div>
                             <div class="buttons">
                                 <button>SEE MORE</button>
-                                <a href='login'><button class="button-57" role="button"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
+                                <a href='/BidX/login'><button class="button-57"><span class="text">BID NOW</span><span class="text">SignIn</span></button></a>
                             </div>
                         </div>
                     </div>
@@ -225,13 +225,13 @@ function Home(res){
             <div className="footer">
                     <div className="footer-content">
                     <div className="privacy-policy">
-                    <a href="pp">Privacy Policy</a>
+                    <a href="/BidX/pp">Privacy Policy</a>
                     </div>
                     <div className="terms-conditions">
-                        <a href="tc">Terms & Conditions</a>
+                        <a href="/BidX/tc">Terms & Conditions</a>
                     </div>
                     <div className="terms-conditions">
-                        <a href="/">BidX©</a>
+                        <a href="/BidX">BidX©</a>
                     </div>
                 </div>
                 </div>

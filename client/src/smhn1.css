@@ -66,7 +66,7 @@ svg{
     letter-spacing: 7px;
     font-size: small;
 }
-.listProduct .item .addCart{
+.listProduct .item .addCart .removeFromCollection {
     background-color: #353432;
     color: #eee;
     border: none;
@@ -74,8 +74,19 @@ svg{
     margin-top: 10px;
     border-radius: 20px;
 }
-.addCart{
-    margin-left: 75px;
+.addCart .removeFromCollection{
+    margin-left: 50px;
+    cursor: pointer;
+}
+.addBid{
+    background-color: #353432;
+    color: #eee;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    margin-left: 88px;
+    cursor: pointer;
 }
 /* cart */
 .cartTab{
@@ -212,10 +223,16 @@ body.showCart .container{
   }
   
   .searchIcon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888; /* Adjust icon color */
+
+    color: #000000; /* Adjust icon color */
   }
-  
+
+.alogo{
+    margin-left: 10px;
+    margin-top: 20px;
+    letter-spacing: 3px;
+    font-weight: 300px;
+    font-size: 65px;
+    color: #f1683a;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
