@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({ limit: '100mb', extended: true })); // Increase 
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log(`Server running on the port number ${PORT}`));
-REACT_APP_DB_URI = "mongodb+srv://medamkowsik2004:kowsik18@kowsikbidx.dunudaw.mongodb.net/?retryWrites=true&w=majority&appName=KowsikBidX";
+
 //Configuration (MONGODB)
-var curl = `${process.REACT_APP_DB_URI}`;
+var curl = `${process.env.REACT_APP_DB_URI}`;
 var client = new MongoClient(curl, {
     serverApi: {
       version: ServerApiVersion.v1,
